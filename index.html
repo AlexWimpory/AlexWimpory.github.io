@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BlogPost template by Adobe Dreamweaver</title>
-<link href="BlogPostAssets/styles/blogPostStyle.css" rel="stylesheet" type="text/css">
+<link href="../../Desktop/BlogPostAssets/styles/blogPostStyle.css" rel="stylesheet" type="text/css">
 <!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.--><script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"></script>
 </head>
 
@@ -179,7 +179,7 @@
     <p>For example, in figure 2.2.1 which shows the plot of new deaths, it can be seen that the value oscillates which is most likely due to bias in the reporting, although it has been hypothesised that this could be due to other factors such as most people becoming infected on the weekends (2).</p>
     <p>The creators of the OWID dataset have taken this into consideration and provided smoothed variants for certain categories of data. However, they have not specified exactly how this has been calculated, only describing the data as having been “7-day smoothed”. In order to verify how this process was performed, an attempt was made to recreate the code which smooths the data.</p>
     <p>It was assumed that the process involved calculating a 7-day rolling average. Pandas does provide support for this. The ‘rolling’ function can be used to create a shifting window across the data of 7-days which can then be used to calculate the mean. Filling in nans with 0 and performing this process will produce the same smoothed data as is in the dataset. This can be seen in figure 2.2.1 where ‘smoothed’ and ‘smoothed_manual’ are the same.&nbsp;</p>
-    <img src="../Pictures/deaths_graph.png" alt="" width="100%" height="100%">
+    <img src="images/deaths_graph.png" alt="" width="100%" height="100%">
     <ca>Figure 2.2.1: This graph shows the difference between unsmoothed deaths and the smoothed deaths</ca>
   </div>
   <div class="split_into_test_and_train">
@@ -193,9 +193,9 @@
     <p><strong>Normalise/Standardise</strong></p>
     <p>The different columns of data have wildly different scales, which can have a drastic impact on the performance of the model. For example, large input values can result in large weights which creates an unstable model that has poor performance. It is critical to scale the values for NNs, unlike some other machine learning methods which might not be as severely affected (not needed for decision trees). There are 2 methods typically used to prevent this from occurring: normalisation and standardisation.</p>
     <p>Normalisation scales the data so that all values are between 1 and 0. It requires that the maximum and minimum values can be accurately estimated.&nbsp;</p>
-    <img src="../Pictures/normalise.JPG" alt="" width="219" height="22">
+    <img src="images/normalise.JPG" alt="" width="219" height="22">
     <p>Standardisation scales the data so that the mean of observed values is 0 and the standard deviation is 1. It requires that the mean and the standard deviation can be accurately estimated.</p>
-    <img src="../Pictures/standardise.JPG" alt="" width="157" height="26">
+    <img src="images/standardise.JPG" alt="" width="157" height="26">
     <p>Either one of these (or both) can be applied to each column of the data although the max/min or the mean/std should only be calculated using the training set, not the test set (which is why this is done after the split into train and test).</p>
     <p>The max/min or the mean/std must be remembered, to allow for the process to be reversed on the output predictions of the model. This was the primary reason for organising the pre-processing code into a class.&nbsp;</p>
     <p>The methods: ‘__normalise_data’, ‘denormalise_data’, ‘__standardise_data’ and ‘destandardise_data’ are used to scale the data and to reverse the process. It was found that standardisation produces a more stable model, so this was used in place of normalisation.&nbsp;</p>
@@ -212,7 +212,7 @@
     <p>Running main (appendix A.3) creates a console menu (appendix A.4) which can be used to select from 2 options: download data file or choose model. Download data file will overwrite the OWID file with the newest file, downloaded from the internet. Choose model creates a sub menu which allows any of the implemented models to be trained and evaluated on the downloaded data. If the data has not been downloaded, it will be downloaded automatically. Partial functions parse the information which selects the type of model to ‘run_model’ which will then build, train and test the model.</p>
     <p>When selecting a model that is not naïve, the number of iterations is requested to be inputted by the user. This refers to the number of models to be trained. Due to the stochastic nature of NN, it is not expected for the model training to always produce the same result. However there is significant variation in the performance, so multiple of the same type of model can be trained, with the best then being selected.&nbsp;</p>
     <p>The code which builds and trains the models is organised into a hierarchy of classes as shown in figure 3.1.1. This is done to prevent any duplicate code while allowing for methods which are unique to the type of model. The structures which define each layer of the model are in their own module called model_structures (appendix A.5) which it tied to the model through association. A CNN univariate model and a univariate LSTM model can use the same class, but a different model structure is passed in.&nbsp;</p>
-    <img src="../Pictures/SNS-Class.jpg" alt="" width="100%" height="100%">
+    <img src="images/SNS-Class.jpg" alt="" width="100%" height="100%">
 <ca>Figure 3.1.1: Shows the hierarchy of classes which inherit from each other</ca>
 <p><strong>base_model.py</strong></p>
 <p>The module ‘base_model.py’ (appendix A.6) contains the CovidPredictionModel class. It provides 2 methods common to all of the models and 3 abstract methods which should always be implemented in some capacity. </p>
@@ -266,7 +266,7 @@
 <p><strong>Evaluation Metric</strong></p>
     <p>A common metric is needed to measure the performance of a model which can then be compared to the others in order for the best to be determined. Two options are commonly used for continuous variables are: root mean squared error (RMSE) and mean absolute error (MAE).</p>
     <p>RMS calculates the square root of the average of squared differences between the prediction and the actual observation whereas MAE calculates the average for the test sample, of the absolute differences between the prediction and actual the observation where all individual differences have equal weight. These can be expressed mathematically as:&nbsp;</p>
-    <img src="../Pictures/RMSE.JPG" alt="" width="180" height="140">
+    <img src="images/RMSE.JPG" alt="" width="180" height="140">
     <p>Where n is the number of samples, j is the sample’s index, y<sub>j</sub> is the predicted value and y ̂ <sub>j</sub> is the actual value.</p>
     <p>RMSE will be used as the evaluation metric as it is more punishing on time series forecasting errors. Due to the errors being squared, large errors are heavily punished, but for MAE the error only scales linearly. A RMSE can be calculated for each of the 7 day predictions which can then be averaged to give an easily comparable value.&nbsp;</p>
     <p><strong>Walk Forward Validation</strong></p>
@@ -289,7 +289,7 @@
     <p>Convolution neural networks (CNNs) are typically used for image classification although they can also be used for time series forecasting by treating the sequence of data as a one-dimensional image.</p>
     <p>They can be described as regularized MLPs (a multi-layer perceptron is a fully connected feedforward NN which has an input layer, an output layer and at least one hidden layer) where convolutional layers extract features and pooling layers reduce the features into only the most important ones. As a result, the layers can be fully connected or pooled.</p>
     <p>The structure for the model can be seen in appendix A.5 but it is also shown here:&nbsp;</p>
-    <img src="../Pictures/uni_cnn.JPG" alt="" width="391" height="143">
+    <img src="images/uni_cnn.JPG" alt="" width="391" height="143">
     <p>The shape of the input layer is defined by the shape of the input data which in this case is 14 for n_timesteps (using the previous 2 weeks of data to make a prediction) by 1 (univariate so only one feature). The hidden layers are then defined.</p>
     <p>&nbsp;The one-dimensional convolutional layer creates a feature map from the data which aims to contain only useful features. A linear operation is performed where the input data is multiplied a set of weights called a kernel (or filter). A kernel size of 3 is used as small, odd numbers typically operate best. Small kernels are preferred to reduce computational costs and odd numbers are needed to prevent distortions. The number of filters is set to be 16 which through observation worked best (compared to smaller numbers such as 4,8 and larger numbers such as 32). Essentially this can be described as reading the input of 7 times, in steps of 3, 16 times.</p>
     <p>Activation refers to the activation function used. It is a mathematical equation attached to each neuron in the network that determines whether it should be activated, based on if each of the neuron’s inputs are relevant for the prediction. A non-linear activation function is needed, so rectified linear unit (ReLU) is used as it is simple and computationally efficient.</p>
@@ -303,7 +303,7 @@
     <p>The first method is to treat each variable as a separate channel (hence this is called a multi-channel CNN) where each channel has its own set of filters to learn features from.</p>
     <p>The second method is to have a sub-CNN for each variable (this is called a multi-headed CNN). In order to implement this more complex structure, the functional API has to be used instead of the sequential. Therefore, a multiheaded model has not been included, although it could be by creating a new branch of the class hierarchy called functional.</p>
     <p>For the multi-channel model, as there is now more data to consider the size of the model has been increased.&nbsp;</p>
-    <img src="../Pictures/multi_cnn.JPG" alt="" width="391" height="209">
+    <img src="images/multi_cnn.JPG" alt="" width="391" height="209">
     <p>The only other difference is that n_features is now greater than 1.</p>
   </div>
   <div class="univariate_simple_lstm">
@@ -311,14 +311,14 @@
     <p>Long short-term memory networks can have various different structures, but initially a simple LSTM is created, that is has a single hidden LSTM layer. The model will operate on univariate data.</p>
     <p>The LSTM layer will read one time step at a time to build up the weights of the neurons. This is unlike the CNN which will read the entire input at once.</p>
     <p>The model structure is shown below:&nbsp;</p>
-    <img src="../Pictures/simple_lstm.JPG" alt="" width="500" height="85">
+    <img src="images/simple_lstm.JPG" alt="" width="500" height="85">
     <p>100 neurons are used in the LSTM layer as more are needed for the model to be effective.</p>
   </div>
   <div class="univariate_enc_dec_lstm">
     <h3>3.6 Univariate Encoder-Decoder LSTM</h3>
     <p>The simple LSTM structure can be modified to an encoder-decoder structure by adding in a few more layers. This structure can be though of as being comprised of 2 sub-models. The first is called the encoder which reads the input sequence and encodes it into a fixed length vector. The second is called the decoder which will read the encoded sequence and make a prediction for each element in the output sequence.</p>
     <p>This structure is primarily used for variable length input and output data but can be beneficial as the model is split into 2 tasks which each of the 2 sub-models can specialise in. The encoder’s task is to understand the input sequence and create a smaller dimensional representation of it. The decoder’s task is to use the output sequence of the encoder, to generate a sequence of its own which represents the output.&nbsp;</p>
-    <img src="../Pictures/enc_dec_lstm.JPG" alt="" width="497" height="127">
+    <img src="images/enc_dec_lstm.JPG" alt="" width="497" height="127">
     <p>The first line defines the encoder. The second line duplicates the sequence from the first layer to get a 2D array for the next layer for each day in the output sequence. The third line defines the decoder where each of the 200 neurons will output a value for each of the seven output days that represent the values for what to use to predict each day in the output sequence. The final 2 lines define the output of the model, where the TimeDistributed wrapper is used to predict each day, one at a time (instead of producing all 7 days at once, hence the final layer only has a shape of 1).</p>
 </div>
   <div class="multivariate_enc_dec_lstm">
@@ -405,7 +405,7 @@
       <!--************************************************************************
     Sidebar starts here. It contains a searchbox, sample ad image and 6 links
     ****************************************************************************-->
-      <div id="adimage"><img src="../Pictures/covid.jfif" alt=""/></div>
+      <div id="adimage"><img src="images/covid.jfif" alt=""/></div>
       <nav>
         <ul>
           <li><a href="#Abstract">Abstract</a></li>
