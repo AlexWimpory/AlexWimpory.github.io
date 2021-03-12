@@ -1,0 +1,440 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlogPost template by Adobe Dreamweaver</title>
+<link href="BlogPostAssets/styles/blogPostStyle.css" rel="stylesheet" type="text/css">
+<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.--><script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="mainwrapper">
+  <header> 
+    <!--**************************************************************************
+    Header starts here. It contains Logo and 3 navigation links. 
+    ****************************************************************************-->
+    <div id="logo">
+      <!-- <img src="logoImage.png" alt="sample logo"> -->
+      <!-- Company Logo text -->
+      <strong>UCL&nbsp;</strong></div>
+</header>
+  <div id="content">
+    <div class="notOnDesktop"> 
+      <!-- This search box is displayed only in mobile and tablet laouts and not in desktop layouts -->
+      <input type="text" placeholder="Search">
+    </div>
+    <section id="mainContent"> 
+      <!--************************************************************************
+    Main Blog content starts here
+    ****************************************************************************-->
+      <h1>
+        <!-- Blog title -->
+        SNS - Report&nbsp; </h1>
+      <div class="abstract">
+        <h2 id="Abstract">
+          <!-- Tagline -->
+          Abstract</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+      </div>
+<div class="introduction">
+  <h2 id="Introduction">1. Introduction&nbsp;</h2>
+  
+        <div class="intoduction">
+          <p>Processing large amounts of data has become a significant area of research in recent times as complex problems aim to be solved from self-driving cars to recommendation systems. This volume of data cannot be processed by hand and a more automatic method of finding patterns is required. Machine learning algorithms fulfil this purpose by allowing a model to learn from experience without having to use predetermined equations.</p>
+          <p>&nbsp;Machine learning algorithms can be broadly grouped into three categories:</p>
+          <bullet>&nbsp;• Supervised learning – models the relationship between input and output features&nbsp;</bullet>
+          <bullet><br>
+          </bullet>
+          <bullet>&nbsp;• Unsupervised learning – groups unlabelled data together by finding patterns in the features&nbsp;</bullet>
+          <bullet><br>
+          </bullet>
+          <bullet>&nbsp;• Reinforcement learning – model continuously learns from its environment in an iterative fashion.&nbsp; Unlike supervised learning there is no correct answer to be trained with and instead the reinforcement agent decides how to perform the task.&nbsp;</bullet>
+          <p>Each area has its own useful applications, but this project focuses on using one of the fastest growing areas of supervised learning, neural networks (NNs).</p>
+          <p>Neural networks are made from layers of interconnected nodes (or neurons) which contain an activation function. The input layer presents data to hidden layers which process the data through a system of weighted connections. The output layer will then give the prediction. This structure was inspired by the biological architecture of the brain and has gained a significant following. Nature typically finds effective, low-cost solutions to problems, it would therefore be sensible to try and imitate nature’s solution to learning, the brain.</p>
+          <p>&nbsp;TensorFlow is an open-source software library for machine learning (provides support for other algorithms such as support vector machines and random forests but NNs are the primary focus). In order to interface with TensorFlow the open-source library keras is used which allows Python code to be written (the programming language that has been widely adopted or scientific research). Keras grants easy to use tools for many different types of NN with several being implemented and described later in the report.</p>
+          <p>&nbsp;As explained before machine learning algorithms have been applied to a variety of problems, but in this case the aim is to apply NNs to COVID-19 forecasting. Since the first case was reported on the 31st of December 2019, the disease has spread rapidly around the world and has proven that effective epidemic modelling is a necessity to predict the progression of the disease so that safeguards can be put in place. The following section will describe in more detail the aims of the project where a specific category of data related to COVID-19 will be predicted.</p>
+        </div>
+        <div class="goals_and_objectives">
+          <h3>1.2 Goals and Objectives&nbsp;</h3>
+          <p><strong>&nbsp;Main Objective:</strong></p>
+          <p>&nbsp;COVID-19 data can be described as time series (measurements are indexed in time order) and discrete (measurements are taken at following points of time of equal length). A time series forecasting model is therefore needed to make predictions. The model will aim to predict the number of daily COVID-19 deaths for the next week and can be described as multistep (a single step model would predict one day ahead but this multistep model will predict seven). There are many different model structures which can perform this function so several will be tested and compared using a common metric from performance. The model should be built with TensorFlow.Keras as Keras is a commonly used method to build neural networks (Keras is a deep learning application programming interface (API), built on top of TensorFlow). </p>
+          <p><strong>&nbsp;Sub-objectives:</strong></p>
+          <bullet>&nbsp; &nbsp; &nbsp;• Use a reliable data source (or multiple sources) to provide relevant information (helps the model predict accurate values).</bullet>
+          <bullet><br>
+            <bullet>The data should be reliable in the sense that it should come from a reputable source which is periodically updated. It is expected that statistics such as new cases would be beneficial when making predictions, but other useful data should be found and included.</bullet>
+            <bullet><br>
+            </bullet>
+            <bullet><br>
+            </bullet>
+            <bullet>&nbsp; &nbsp; • Pre-process the data so that it can be more easily handled by the machine learning model.&nbsp;</bullet>
+            <bullet><br>
+            </bullet>
+            <bullet>An extremely import step when developing a machine learning model as the data has to be in a proper format of input and output features so that the model can train on the data. There are also processes that can be applied to the data to positively affect the model’s ability to learn.</bullet>
+            <bullet><br>
+            </bullet>
+            <bullet><br>
+            </bullet>
+            <bullet>&nbsp; &nbsp; &nbsp;• Ensure that the code is reusable, so that the model can be updated as more data is released or trained on different data.&nbsp;</bullet>
+            <bullet><br>
+            </bullet>
+            <bullet>Designing the code to be reusable is good practice to increase readability and prevent wasted development time. It also allows the models to be retrained with different data. </bullet>
+            <bullet><br>
+            </bullet>
+            <bullet><br>
+            </bullet>
+            <bullet>&nbsp; &nbsp; • Code follows “the Zen of Python” and is well commented.</bullet>
+            <bullet><br>
+            </bullet>
+            <bullet> Coding problems can be solved in many different ways, but solutions effectiveness vary in terms of aspects such as: readability, efficiency, etc. Therefore, any code that is written should adhere to standard practices and be as efficient as possible.&nbsp;</bullet>
+            <bullet><br>
+            </bullet>
+            <bullet>Functions should be small and well named. Comments give someone who is interested in looking at the code the ability to follow it easily. Docstrings should be used where needed, to provide help when running the program.</bullet>
+            <bullet><br>
+            </bullet>
+            <bullet><br>
+            </bullet>
+            <bullet>&nbsp; &nbsp; • Make the code object orientated, not just as set of scripts.&nbsp;</bullet>
+            <bullet><br>
+            </bullet>
+            <bullet>This will provide various benefits such as: an improved structure, the code being more reusable, easier to change and ensuring that the documentation is better. &nbsp;</bullet>
+          </bullet>
+        </div>
+        <div class="lit_review">
+          <h3>1.3 Literature Review</h3>
+          <p>The first neural network can be traced back to having been built in 1943 and consisted of a simple circuit built by neurophysiologist Warren McCulloch with mathematician Walter Pitts (1). This led to increasing interest in the area and resulted in several single layer perceptron’s being built. It was not until Rumelhart, Hinton &amp; Williams popularized backpropagation (2) that multi-layer NNs were developed and since have become extremely popular.</p>
+          <p>&nbsp;Since then, many different types of neural networks have been developed (3) but in this report CNNs and LSTMs will be the main focus as they are typically applied to time series problems.</p>
+        </div>
+        <div class="chapter_content">
+          <h3>1.4 Chapter Content</h3>
+          <p>The second section of this report will focus on the sources of data used and the processing which is then applied to the data.&nbsp;</p>
+          <p>The third section will describe the theory behind the models used and the code used to train them. The models will then produce results that can be compared and contrasted in section four.&nbsp;</p>
+          <p>Section five will give a brief conclusion on the outcome of the project.&nbsp;</p>
+          <p>Appendix A links to the GitHub repository that contains all of the code. Links to specific modules that are referenced in the report are also provided. Appendix B lists all the packages required to run the code and provides a short explanation of their purpose. </p>
+        </div>
+      </div>
+<div class="data_sources_and_pre_processing">
+  <h2 id="Data">2. Data Sources and Processing Code</h2>
+  <div class="information_used">
+    <h3>2.1 Information Used</h3>
+    <p>The primary source of information is ‘Our World in Data’ (OWID) COVID-19 dataset (1) which serves as an amalgamation of other data sources across multiple countries. Important information such a new cases and new deaths is provided for 207 countries which would be more difficult to source and keep up do date in the same format if the original sources were used. This would easily allow for models to be trained on different countries data without any changes to the python code (expecting the country to be defined through its iso code).</p>
+    <p>The data is provided in 3 formats:&nbsp;</p>
+    <bullet>• csv</bullet>
+    <bullet>&nbsp;</bullet>
+    <bullet><br>
+    </bullet>
+    <bullet>• xlsx&nbsp;</bullet>
+    <bullet><br>
+    </bullet>
+    <bullet>• json &nbsp;</bullet>
+    <bullet>&nbsp;</bullet>
+    <p>Csv or json would be suitable formats for the data which could then be read into a data frame, but json was selected as the countries are indexed by country, which makes finding the relevant data slightly easier.</p>
+    <p>The code in appendix A.1 (‘data_loader’) will download the latest version of the data if required and will also load the data for the country which is selected in config. If the data is to be downloaded, the request package is used to check for a viable download before saving the file to the data folder.</p>
+    <p>The file header is checked to ensure that it is a json file before the contents are written to the output directory. This file can then be read when a model is trained with the ‘load_country’ function that extracts the desired information from he json file, depending on the ‘country_iso_code’ and the ‘input_columns’ in config. The output is specified by ‘output_column’ in config which must also be in ‘input_columns’ because it is expected that previous output values affect the prediction.</p>
+    <p>For comparison univariate models and multivariate models are trained. A univariate model measures a single variable over time and a multivariate has multiple variables over time. In this case a univariate model will only be trained on the number of deaths and the multivariate will include other variables such as number of cases.&nbsp;</p>
+    <red>• Talk about columns used- mention config&nbsp;</red>
+    <red><br>
+    </red>
+    <red><br>
+    </red>
+    <red>• Correlation graphs&nbsp;</red>
+<p>Models were trained using information about vaccinations, but this only served to worsen the performance of the models. This is due to the vaccine rollout being relatively recent which has caused the model to be trained on only 0s. The model can therefore not learn anything from this data until more information is available.</p>
+    <p>A data frame is used to store the information as it allows for many useful processing techniques to be easily applied in the next section. Accessing and manipulation specific columns and rows of data would be significantly more difficult if numpy or lists of dictionaries were used.</p>
+    <p>It is useful to index the data frame by date instead of position because the date column gives an intuitive way of accessing the data. Having a date as the index also allows certain operations to be performed on the data frame such as setting the frequency. For this to be achieved the current string object for the dates must be converted to a date time object which can then be set to the index with ‘set_index’. This is performed when the country is loaded in appendix A.1.&nbsp;</p>
+    <p>The data has a clear daily frequency.  Any missing dates can be added as empty rows (nans) to fill in later through an interpolation method. There should not be any missing dates in the data used, but it is good practice to include this functionality to prevent distortion in the data from missing entries. This can be simply done by using asfreq(‘d’) to set the frequency to daily (if needed the data could be resampled to a different frequency).</p>
+</div>
+  <div class="pre_processing">
+    <h3>2.2 Pre-Processing</h3>
+    <p>The preprocessing of the data which has been loaded in the previous section will now be discussed. All of the code which pre-processes the data can be found in appendix A.2. A class is created called ‘Dataset’ which contains methods that should not be accessed outside the class (indicated by __). Upon initiation the method ‘__generate_train_test’ is run to process the data as described by the rest of this section:</p>
+    <bullet>1. Filtering&nbsp;</bullet>
+    <bullet><br>
+    </bullet>
+    <bullet>2. Remove nans&nbsp;</bullet>
+    <bullet><br>
+    </bullet>
+    <bullet>3. Smoothing&nbsp;</bullet>
+    <bullet><br>
+    </bullet>
+    <bullet>4. Split into test and train&nbsp;</bullet>
+    <bullet><br>
+    </bullet>
+    <bullet>5. Normalise&nbsp;</bullet>
+    <bullet><br>
+    </bullet>
+    <bullet>6. Split into sets of 7 days &nbsp;</bullet>
+  </div>
+  <div class="filtering">
+    <p><strong>Filtering</strong></p>
+    <p>First the desired columns are extracted from the data frame i.e. the columns as described in section 2.1 where other columns are then dropped. The first column is used as the output to be predicted, so the data frame is reordered to ensure that the column set in config as the output column will always be at the start.</p>
+  </div>
+  <div class="remove_nans">
+    <p><strong>Remove nans</strong></p>
+    <p>The nans introduced through filling in missing dates and at the start or end of the data have to either be filled in or interpolated for the data suitable to be trained on. Typical methods such as using the mean or median cannot be implemented as the data is time series. It is also important to consider how many sequential empty values are filled in at the start/end as losing data is never wanted but introducing noise can also become an issue.</p>
+    <p>In order to fill in the missing entries at the start of the data, back fill is used to copy the first value backwards. The limit is set to 7 to prevent a long sequence of nans at the start being filled, potentially adding in a significant amount of noise. Likewise, nans at the end of the data are filled in with forward fill and a limit of 7. The code which removes nans can be seen in method ‘remove_nan’.</p>
+    <p>An override is introduced to provide a different method for removing nans as the vaccination data would not be effectively estimated using the previous method. The number of vaccinations is recorded as nan before any programmes have been established. These nans must be filled in with 0s to prevent a significant proportion of the data from being dropped. There are also some missing values during the initial rollout of the vaccine. These are estimated using linear interpolation when there is a nan in between 2 reported values.&nbsp;</p>
+  </div>
+  <div class="smoothing">
+    <p><strong>Smoothing</strong></p>
+    <p>Before proceeding any further it is important to consider the seasonality of the data. This can be described as a repeating pattern in the data which only serves to complicate the analysis of trends in data while not serving as a useful characteristic of the data.</p>
+    <p>For example, in figure 2.2.1 which shows the plot of new deaths, it can be seen that the value oscillates which is most likely due to bias in the reporting, although it has been hypothesised that this could be due to other factors such as most people becoming infected on the weekends (2).</p>
+    <p>The creators of the OWID dataset have taken this into consideration and provided smoothed variants for certain categories of data. However, they have not specified exactly how this has been calculated, only describing the data as having been “7-day smoothed”. In order to verify how this process was performed, an attempt was made to recreate the code which smooths the data.</p>
+    <p>It was assumed that the process involved calculating a 7-day rolling average. Pandas does provide support for this. The ‘rolling’ function can be used to create a shifting window across the data of 7-days which can then be used to calculate the mean. Filling in nans with 0 and performing this process will produce the same smoothed data as is in the dataset. This can be seen in figure 2.2.1 where ‘smoothed’ and ‘smoothed_manual’ are the same.&nbsp;</p>
+    <img src="../Pictures/deaths_graph.png" alt="" width="100%" height="100%">
+    <ca>Figure 2.2.1: This graph shows the difference between unsmoothed deaths and the smoothed deaths</ca>
+  </div>
+  <div class="split_into_test_and_train">
+    <p><strong>Split into Test and Train</strong></p>
+    <p>The data is now ready to be split into a training and a test set where the model is fit to the training set and then evaluated on the test set. It is important to split the data so that the model can be evaluate on new data which is unbiased (model will perform better when predicting data that it has been trained on).&nbsp;</p>
+    <p>10% of the data (at the end not randomly as the data is time series) is set aside in the test set in the ‘split_data_train_test’ function. Also, data is cut from the start of the train set and the end of the test set to ensure that the sets can be divided neatly into weeks which will be important later.</p>
+    <p>It is good practice to provide a 3rd split of the data called a validation set but this is performed when the model is trained as it can be easily specified as an input argument.&nbsp; The validation set is used to evaluate the performance of the model during training to fine tune hyperparameters. It is separate from the test set as the model might have some slight bias towards the validation set because the model has seen the data (but not learnt from it) .&nbsp;</p>
+    <red>•	Show shapes of train and test sets</red>
+  </div>
+  <div class="normalise">
+    <p><strong>Normalise/Standardise</strong></p>
+    <p>The different columns of data have wildly different scales, which can have a drastic impact on the performance of the model. For example, large input values can result in large weights which creates an unstable model that has poor performance. It is critical to scale the values for NNs, unlike some other machine learning methods which might not be as severely affected (not needed for decision trees). There are 2 methods typically used to prevent this from occurring: normalisation and standardisation.</p>
+    <p>Normalisation scales the data so that all values are between 1 and 0. It requires that the maximum and minimum values can be accurately estimated.&nbsp;</p>
+    <img src="../Pictures/normalise.JPG" alt="" width="219" height="22">
+    <p>Standardisation scales the data so that the mean of observed values is 0 and the standard deviation is 1. It requires that the mean and the standard deviation can be accurately estimated.</p>
+    <img src="../Pictures/standardise.JPG" alt="" width="157" height="26">
+    <p>Either one of these (or both) can be applied to each column of the data although the max/min or the mean/std should only be calculated using the training set, not the test set (which is why this is done after the split into train and test).</p>
+    <p>The max/min or the mean/std must be remembered, to allow for the process to be reversed on the output predictions of the model. This was the primary reason for organising the pre-processing code into a class.&nbsp;</p>
+    <p>The methods: ‘__normalise_data’, ‘denormalise_data’, ‘__standardise_data’ and ‘destandardise_data’ are used to scale the data and to reverse the process. It was found that standardisation produces a more stable model, so this was used in place of normalisation.&nbsp;</p>
+  </div>
+  <div class="split_into_sets_of_7_days">
+    <p><strong>Split into sets of 7 days</strong></p>
+    <p>The data is split into groups of 7 as the aim is to predict 7 days into the future.</p>
+</div>
+</div>
+<div class="machine_learning_framework_and_code">
+  <h2 id="Machine">3. Machine Learning Framework and Code</h2>
+  <div class="general">
+    <h3>3.1 General</h3>
+    <p>Running main (appendix A.3) creates a console menu (appendix A.4) which can be used to select from 2 options: download data file or choose model. Download data file will overwrite the OWID file with the newest file, downloaded from the internet. Choose model creates a sub menu which allows any of the implemented models to be trained and evaluated on the downloaded data. If the data has not been downloaded, it will be downloaded automatically. Partial functions parse the information which selects the type of model to ‘run_model’ which will then build, train and test the model.</p>
+    <p>When selecting a model that is not naïve, the number of iterations is requested to be inputted by the user. This refers to the number of models to be trained. Due to the stochastic nature of NN, it is not expected for the model training to always produce the same result. However there is significant variation in the performance, so multiple of the same type of model can be trained, with the best then being selected.&nbsp;</p>
+    <p>The code which builds and trains the models is organised into a hierarchy of classes as shown in figure 3.1.1. This is done to prevent any duplicate code while allowing for methods which are unique to the type of model. The structures which define each layer of the model are in their own module called model_structures (appendix A.5) which it tied to the model through association. A CNN univariate model and a univariate LSTM model can use the same class, but a different model structure is passed in.&nbsp;</p>
+    <img src="../Pictures/SNS-Class.jpg" alt="" width="100%" height="100%">
+<ca>Figure 3.1.1: Shows the hierarchy of classes which inherit from each other</ca>
+<p><strong>base_model.py</strong></p>
+<p>The module ‘base_model.py’ (appendix A.6) contains the CovidPredictionModel class. It provides 2 methods common to all of the models and 3 abstract methods which should always be implemented in some capacity. </p>
+<p>‘evaluate_forecast’ gives a value for the performance of the model through comparing the model’s predictions and the actual values. It should always be calculated in the same way to ensure fair comparison (described in more detail later under evaluation metric).</p>
+<p>‘evaluate_model’ generates the sequence of predictions required for ‘evaluate_forecast’ by running the test set through the model using walk forward validation. It creates an array for the predictions which can be compared to the expected outputs from the test set. The arrays are destandardised before being passed into ‘evaluate_forecast’.</p>
+<p>‘forecast’, ‘fit’ and ‘compile’ are all abstract methods as they are expected to be implemented in any inheriting classes.&nbsp;</p>
+<p><strong>naive_model.py</strong></p>
+<p>The module 'naïve_model.py' (appendix A.7) contains the classes related to naïve models (simple models used as a baseline). The classes inherit from the CovidPredictionModel class and therefore need a ‘forecast’, ‘fit’ and a compile method.</p>
+<p>It is explained later in section 3.2 why a ‘fit’ and a ‘compile’ method are not strictly needed, but they should still be implemented even if the code does nothing. This is useful when creating general purpose code. When a model is built, trained and tested it would be inelegant to have to specify when and when not to use these methods. The ‘run_model’ function can therefore be used for every model even if they have slightly different requirements.&nbsp;</p>
+<p><strong>sequential_model.py</strong></p>
+<p>The module ‘sequential_model.py’ (appendix A.8) contains the class CovidPredictionSequentialModel which inherits from CovidPredictionModel and contains all of the code, common to creating sequential models in Keras.</p>
+<bullet>Upon initiation a sequential model is created and ‘to_supervised’ is used to slightly modify the training data. This method uses the list of weeks and the number of timesteps to create overlapping windows of data.</bullet>
+<bullet>3 important parameters are defined here:</bullet>
+<bullet><br>
+</bullet>
+<bullet>&nbsp;•	n_timesteps = The number of previous days used to make the prediction</bullet>
+<bullet><br>
+</bullet>
+<bullet>&nbsp;• n_features = The number of data columns used to make the prediction</bullet>
+<bullet><br>
+</bullet>
+<bullet>&nbsp;•	n_outputs = The number of days to predict</bullet>
+<bullet><br>
+</bullet>
+<bullet>Layers are then added to the model based on the structure selected in ‘model_structures.py’.</bullet>
+<p>The method ‘compile’ configures the model for training. The loss function is used to estimate the loss of the model so that the weights can be updated to reduce the loss on the next evaluation, improving the model’s performance. Here it is selected when the model is compiled as ‘mse’ whose selection is explained later in the section evaluation metric. The learning rate is a hyperparameter which controls by how much model is changed in response to the estimated error each time the model weights are updated. When training a NN it is beneficial to reduce the learning rate as it progresses through a learning rate schedule. However, these are difficult to optimize and have a significant impact on the performance of the model. The optimizer ‘Adam‘ was therefore selected with the default parameters which is typically quick to converge and stable.</p>
+<bullet>The fit method is where the model is trained and has several important aspects to explain:</bullet>
+<bullet><br>
+</bullet>
+<bullet><br>
+</bullet>
+<bullet>•	epochs = the number times that the learning algorithm will work through the entire training dataset (set to a high number as early stopping is expected to stop the training before this epoch has been reached)</bullet>
+<bullet><br>
+</bullet>
+<bullet>• ModelCheckpoint = saves the model if it performs best after each epoch</bullet>
+<bullet><br>
+</bullet>
+<bullet>• EarlyStopping = stops the training if the model does not improve after a certain number of epochs, defined by the patience</bullet>
+<bullet><br>
+</bullet>
+<bullet>• batch_size = the number of samples used to estimate the error before the weights are updated (set to 16 as batches around this size typically work best)&nbsp;&nbsp;</bullet>
+<bullet><br>
+</bullet>
+<bullet>• shuffle = the data is time series so shuffle is set to false as it should be in order (not random)&nbsp;</bullet>
+<bullet><br>
+</bullet>
+<bullet>• validation_split = use 20% of the training set for validation&nbsp;</bullet>
+<p>The abstract class ‘forecast’ is left to be defined in the inheriting class and a new abstract class is defined to perform the ‘to_supervised’ conversion.</p>
+<p><strong>uni_multi_model.py</strong></p>
+<p>This module shown in appendix 9 contains 2 classes: CovidPredictionModelUni and CovidPredictionModelMulti which inherit from the CovidPredictionSequentialModel. These classes are similar but need their own ‘forecast’ and ‘to_supervised’ methods to account for the different shapes of input data.&nbsp;</p>
+<p><strong>Evaluation Metric</strong></p>
+    <p>A common metric is needed to measure the performance of a model which can then be compared to the others in order for the best to be determined. Two options are commonly used for continuous variables are: root mean squared error (RMSE) and mean absolute error (MAE).</p>
+    <p>RMS calculates the square root of the average of squared differences between the prediction and the actual observation whereas MAE calculates the average for the test sample, of the absolute differences between the prediction and actual the observation where all individual differences have equal weight. These can be expressed mathematically as:&nbsp;</p>
+    <img src="../Pictures/RMSE.JPG" alt="" width="180" height="140">
+    <p>Where n is the number of samples, j is the sample’s index, y<sub>j</sub> is the predicted value and y ̂ <sub>j</sub> is the actual value.</p>
+    <p>RMSE will be used as the evaluation metric as it is more punishing on time series forecasting errors. Due to the errors being squared, large errors are heavily punished, but for MAE the error only scales linearly. A RMSE can be calculated for each of the 7 day predictions which can then be averaged to give an easily comparable value.&nbsp;</p>
+    <p><strong>Walk Forward Validation</strong></p>
+    <p>Walk forward validation is a process in which the model makes a prediction and then the data is made available for the next prediction.&nbsp; In this case the prediction for week 2 is made using the data for week 1 and the prediction is made for week 3 using the data from week 1 and 2 etc.</p>
+    <p>This simulates how the model would operate in the real world where not all of the data would be available at the start.&nbsp; Instead the model can only use data for the time that has elapsed with more information being slowly acquired  each week.&nbsp; &nbsp; &nbsp;</p>
+<p><strong>Logging&nbsp;</strong></p>
+    <p>The Python logging framework is used to display useful information when the system is running. An example of the output can be seen in appendix C. The file ‘logging_config.py’ (appendix A.10) initialises the framework when imported and also sets TensorFlow C++ logging to 2 which silences non-error messages (TensorFlow prints a lot of red text when initialised which is now disabled).</p>
+    <p>Appendix A.11 contains the different formatters and loggers implemented in a yaml file where information can either be printed to the terminal or to a file.&nbsp; The logging framework also allows different levels of logging to be implemented, for instance DEBUG for more detailed logging.&nbsp;</p>
+</div>
+  <div class="naive_models">
+    <h3>3.2 Naive Models&nbsp;</h3>
+    <p>It is useful to establish a baseline model which can be compared against other models. This is typically done with an extremely simple naïve model where the predictions are set to the last observed value (hence they a univariate models). The forecast will therefore require not training making it fast and repeatable (no random initiation will result in the output always being the same given the same input data). Two naïve models have been implemented: daily persistence and weekly persistence.</p>
+    <p>The daily persistence model takes the last output value for the previous week and forecasts the next week by saying the output will not change from this value. This model assumes that there is little change in the output over the course of a week.</p>
+    <p>The weekly persistence model will use the entirety of the previous week as the prediction which assumes that the next week will be similar to the previous one.</p>
+    <p>The subclasses: CovidPredictionModelNaiveDaily and CovidPredictionModelNaiveWeekly perform these predictions with the forecast code just copying values in an array to make a prediction, whether that be the last day of the week before or the entire week.</p>
+    <p>No model is effectively trained so fit and compile methods are not needed.&nbsp;</p>
+  </div>
+  <div class="univariate_cnn">
+    <h3>3.3 Univariate CNN</h3>
+    <p>Convolution neural networks (CNNs) are typically used for image classification although they can also be used for time series forecasting by treating the sequence of data as a one-dimensional image.</p>
+    <p>They can be described as regularized MLPs (a multi-layer perceptron is a fully connected feedforward NN which has an input layer, an output layer and at least one hidden layer) where convolutional layers extract features and pooling layers reduce the features into only the most important ones. As a result, the layers can be fully connected or pooled.</p>
+    <p>The structure for the model can be seen in appendix A.5 but it is also shown here:&nbsp;</p>
+    <img src="../Pictures/uni_cnn.JPG" alt="" width="391" height="143">
+    <p>The shape of the input layer is defined by the shape of the input data which in this case is 14 for n_timesteps (using the previous 2 weeks of data to make a prediction) by 1 (univariate so only one feature). The hidden layers are then defined.</p>
+    <p>&nbsp;The one-dimensional convolutional layer creates a feature map from the data which aims to contain only useful features. A linear operation is performed where the input data is multiplied a set of weights called a kernel (or filter). A kernel size of 3 is used as small, odd numbers typically operate best. Small kernels are preferred to reduce computational costs and odd numbers are needed to prevent distortions. The number of filters is set to be 16 which through observation worked best (compared to smaller numbers such as 4,8 and larger numbers such as 32). Essentially this can be described as reading the input of 7 times, in steps of 3, 16 times.</p>
+    <p>Activation refers to the activation function used. It is a mathematical equation attached to each neuron in the network that determines whether it should be activated, based on if each of the neuron’s inputs are relevant for the prediction. A non-linear activation function is needed, so rectified linear unit (ReLU) is used as it is simple and computationally efficient.</p>
+<p>The pooling layer strips away any unwanted features to help prevent overfitting. Max pooling calculates the maximum value of the numbers within a single filter which often gives a higher accuracy than the other pooling methods.</p>
+    <p>The last few layers of the CNN are fully connected dense layers which learn by updating weights measured by back propagation and the loss function. The output of the convolutional layers must be flattened to a one-dimensional vector as arrays cannot be used as inputs.</p>
+    <p>The dense output layer has a shape of 7 for n_outputs as the next 7 timesteps are to be predicted.&nbsp;</p>
+  </div>
+  <div class="multivariate_cnn">
+    <h3>3.4 Multivariate CNN</h3>
+    <p>There are 2 ways in which a CNN can be modified to work on a multivariate input instead of univariate.</p>
+    <p>The first method is to treat each variable as a separate channel (hence this is called a multi-channel CNN) where each channel has its own set of filters to learn features from.</p>
+    <p>The second method is to have a sub-CNN for each variable (this is called a multi-headed CNN). In order to implement this more complex structure, the functional API has to be used instead of the sequential. Therefore, a multiheaded model has not been included, although it could be by creating a new branch of the class hierarchy called functional.</p>
+    <p>For the multi-channel model, as there is now more data to consider the size of the model has been increased.&nbsp;</p>
+    <img src="../Pictures/multi_cnn.JPG" alt="" width="391" height="209">
+    <p>The only other difference is that n_features is now greater than 1.</p>
+  </div>
+  <div class="univariate_simple_lstm">
+    <h3>3.5 Univariate Simple LSTM</h3>
+    <p>Long short-term memory networks can have various different structures, but initially a simple LSTM is created, that is has a single hidden LSTM layer. The model will operate on univariate data.</p>
+    <p>The LSTM layer will read one time step at a time to build up the weights of the neurons. This is unlike the CNN which will read the entire input at once.</p>
+    <p>The model structure is shown below:&nbsp;</p>
+    <img src="../Pictures/simple_lstm.JPG" alt="" width="500" height="85">
+    <p>100 neurons are used in the LSTM layer as more are needed for the model to be effective.</p>
+  </div>
+  <div class="univariate_enc_dec_lstm">
+    <h3>3.6 Univariate Encoder-Decoder LSTM</h3>
+    <p>The simple LSTM structure can be modified to an encoder-decoder structure by adding in a few more layers. This structure can be though of as being comprised of 2 sub-models. The first is called the encoder which reads the input sequence and encodes it into a fixed length vector. The second is called the decoder which will read the encoded sequence and make a prediction for each element in the output sequence.</p>
+    <p>This structure is primarily used for variable length input and output data but can be beneficial as the model is split into 2 tasks which each of the 2 sub-models can specialise in. The encoder’s task is to understand the input sequence and create a smaller dimensional representation of it. The decoder’s task is to use the output sequence of the encoder, to generate a sequence of its own which represents the output.&nbsp;</p>
+    <img src="../Pictures/enc_dec_lstm.JPG" alt="" width="497" height="127">
+    <p>The first line defines the encoder. The second line duplicates the sequence from the first layer to get a 2D array for the next layer for each day in the output sequence. The third line defines the decoder where each of the 200 neurons will output a value for each of the seven output days that represent the values for what to use to predict each day in the output sequence. The final 2 lines define the output of the model, where the TimeDistributed wrapper is used to predict each day, one at a time (instead of producing all 7 days at once, hence the final layer only has a shape of 1).</p>
+</div>
+  <div class="multivariate_enc_dec_lstm">
+    <h3>3.7 Multivariate Encoder-Decoder LSTM</h3>
+    <p>As the model is already suitable large, no changes need to be made to the structure (in terms of hard coding, n_features will still be different). All that needs to change is to switch the class from CovidPredictionModelUni to CovidPredictionModelMulti.</p>
+    </div>
+</div>
+<div class="results">
+  <h2 id="Results">4. Results</h2>
+  <p>In order for a fair comparison the number of iterations is always set to 10. That is 10 models of each type are trained and the best is selected to be placed in the table.</p>
+  <red>Table</red>
+  <p>3 graphs are plotted for each model type:</p>
+  <bullet>1. Loss during training</bullet>
+  <bullet><br>
+  </bullet>
+  <bullet>2. The daily forecast error</bullet>
+  <bullet><br>
+  </bullet>
+<bullet>3.&nbsp;A comparison of the predictions to the actual values</bullet>
+<div class="naive_daily">
+  <h3>4.1 Naive Daily</h3>
+</div>
+  <div class="naive_weekly">
+    <h3>4.2 Naive Weekly</h3>
+  </div>
+  <div class="univariate_cnn">
+    <h3>4.3 Univariate CNN</h3>
+  </div>
+  <div class="multivariate_cnn">
+    <h3>4.4 Multivariate CNN</h3>
+  </div>
+  <div class="univariate_simple_lstm">
+    <h3>4.5 Univariate Simple LSTM</h3>
+  </div>
+  <div class="univariate_enc_dec_lstm">
+    <h3>4.6 Univariate Encoder-Decoder LSTM</h3>
+  </div>
+  <div class="multivariate_enc_dec_lstm">
+    <h3>4.7 Multivariate Encoder-Decoder LSTM</h3>
+  </div>
+  <div class="comparison">
+    <h3>4.8 Comparison and Discussion</h3>
+  </div></div>
+<div class="conclusion">
+  <h2 id="Conclusion">5. Conclusion</h2>
+  </div>
+<div class="appendix_a">
+  <h2 id="Appendix_A">6. Appendix A: Code</h2>
+  <p>A.1: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/data_processing/data_loader.py">data_loader.py</a></p>
+  <p>A.2: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/data_processing/data_pre_processor.py">data_pre_processor</a></p>
+  <p>A.3: <a href=" https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/main.py">main.py</a></p>
+  <p>A.4: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/menu.py">menu.py</a></p>
+  <p>A.5: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/model_structures.py">model_structures.py</a></p>
+  <p>A.6: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/base_model.py">base_model.py</a></p>
+  <p>A.7: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/naive_model.py">naive_model.py</a></p>
+  <p>A.8 <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/sequential_model.py">sequential_model.py&nbsp;</a></p>
+  <p>A.9 <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/uni_multi_model.py">uni_multi_model.py&nbsp;</a></p>
+  <p>A.10 <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/logging_config.py">logging_config.py&nbsp;</a></p>
+  <p>A.11 <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/logging_config.yaml">logging_config.yaml&nbsp;</a></p>
+</div>
+<div class="appendix_b">
+  <h2 id="Appendix_B">7. Appendix B: Packages Used</h2>
+  <p>The packages used can be found in the requirements text file <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/requirements.txt">here</a>which can be managed through the pip tool:&nbsp;</p>
+  <p><em>tensorflow</em>: Keras is used to build neural networks and is a deep learning application programming interface (API), built on top of TensorFlow. In particular, the sequential model API is used where the network is defined layer by layer. The added flexibility of the functional model API (instead of the sequential model API) which allows the connections between each layer to be specified, could be implemented for more complex model structures.</p>
+  <p><em>pandas</em>: Used to store input and output features in a data frame which provides an easy input for models and allows for analysis of the input data.</p>
+  <p><em>matplotlib</em>: A library for plotting data in python.</p>
+  <p><em>numpy</em>: Arrays are not traditionally needed for Python as there are lists and dictionaries. When they are required NumPy provides tools for this.</p>
+  <p><em>statsmodels</em>: A Python package that which provides tools for statistical computations including descriptive statistics and estimation and inference for statistical models</p>
+  <p><em>requests</em>: A simple library for sending HTTP requests easily.</p>
+  <p><em>scikit-learn</em>: A machine learning library which features easy implementation of standard regression and classification methodologies.</p>
+  <p><em>seaborn</em>: A library for plotting data in python which is used for visualizing the correlation heatmap.</p>
+  <p><em>ConsoleMenu</em>: A simple Python menu-based UI system which allows different commands to be executed in the terminal when main is run.</p>
+  </div>
+<div class="appendix_c">
+  <h2 id="Appendix_C">8. Appendix C: Logging Example&nbsp;</h2>
+  </div>
+<aside id="authorInfo"> 
+        <!-- The author information is contained here -->
+        <h2>References</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </aside>
+    </section>
+    <section id="sidebar"> 
+      <!--************************************************************************
+    Sidebar starts here. It contains a searchbox, sample ad image and 6 links
+    ****************************************************************************-->
+      <div id="adimage"><img src="../Pictures/covid.jfif" alt=""/></div>
+      <nav>
+        <ul>
+          <li><a href="#Abstract">Abstract</a></li>
+          <li><a href="#Inroduction">Introduction</a></li>
+<li><a href="#Data">Data and Preprocessing</a></li>
+          <li><a href="#Machine">Machine Learning Framework and Code</a></li>
+<li><a href="#Results">Results</a><a>&nbsp;</a></li>
+          <li><a href="#Conclusion">Conclusion</a></li>
+		  <li><a href="#Appendix_A">Appendix A: Code&nbsp;</a></li>
+		<li><a href="#Appendix_B">Appendix B: Packages Used&nbsp;</a></li>
+		<li><a href="#Appendix_C">Appendix C: Logging Example&nbsp;</a></li>
+        </ul>
+      </nav>
+    </section>
+    <footer> 
+      <!--************************************************************************
+    Footer starts here
+    ****************************************************************************-->
+      <article>
+        <h3>GitHub</h3>
+        <p><a href="https://github.com/AlexWimpory/SNS_Covid">https://github.com/AlexWimpory/SNS_Covid&nbsp;</a></p>
+      </article>
+      <article>
+        <h3>Details</h3>
+        <p>SN:&nbsp;</p>
+      </article>
+    </footer>
+  </div>
+  <div id="footerbar"><!-- Small footerbar at the bottom --></div>
+</div>
+</body>
+</html>
