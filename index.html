@@ -377,7 +377,7 @@
   <h2 id="Results">4. Results</h2>
   <p>In order for a fair comparison the number of iterations is always set to 10. That is 10 models of each type are trained and the best is selected to be placed in the table.</p>
   <red>Table</red>
-  <p>3 graphs are plotted for each model type:</p>
+  <p>2 or 3 graphs are plotted for each model type (naive models don't have learing curves):</p>
   <bullet>1. Learning curves</bullet>
   <bullet><br>
   </bullet>
@@ -393,7 +393,7 @@
     <img src="images/RMSE_weekly.png" alt="" width="640" height="480"><img src="images/pred_weekly.png" alt="" width="640" height="480"> </div>
   <div class="univariate_cnn">
     <h3>4.3 Univariate CNN</h3>
-  </div>
+    <img src="images/loss_uni_cnn.png" alt="" width="640" height="480"><img src="images/RMSE_uni_cnn.png" alt="" width="640" height="480"><img src="images/pred_uni_cnn.png" alt="" width="640" height="480"> </div>
   <div class="multivariate_cnn">
     <h3>4.4 Multivariate CNN</h3>
   </div>
@@ -441,7 +441,57 @@
   </div>
 <div class="appendix_c">
   <h2 id="Appendix_C">8. Appendix C: Logging Example&nbsp;</h2>
-  </div>
+<p style="line-height: 0;"><span style="font-size: 10px; font-family: Calibri, sans-serif;">Configuring the logging system from config file: logging_config.yaml</span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;"><br></span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;"><br></span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">Covid-19</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">1) Download OWID data file</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2) Download GStatic data file</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">3) Choose model</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">4) exit</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">run: 3</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;"><br></span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;"><br></span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">Choose model</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">1) daily_naive</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2) weekly_naive</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">3) uni_cnn</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">4) multi_cnn</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">5) lstm_simple_uni</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">6) lstm_enc_dec_uni</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">7) lstm_enc_dec_multi</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">8) back</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">run: 3</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;"><br></span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">Enter the number of iterations: 10</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:32 INFO &nbsp; &nbsp; data_loader.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Data not downloaded from https://covid.ourworldindata.org/data/owid-covid-data.json</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:32 INFO &nbsp; &nbsp; data_loader.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Data loaded for GBR</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:32 INFO &nbsp; &nbsp; data_loader.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Data not downloaded from https://www.gstatic.com/covid19/mobility/Region_Mobility_Report_CSVs.zip</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_loader.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Data loaded for GB</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_pre_processor.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Columns to be trained on: [&apos;new_deaths_smoothed&apos;]</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_pre_processor.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The training data shape is: (48, 7, 8)</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_pre_processor.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The testing data shape is: (5, 7, 8)</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 1</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:39 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 1: &nbsp;cnn_uni: [64.308] 39.986, 59.245, 42.155, 50.122, 53.290, 61.465, 113.722</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:39 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 2</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:50 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 2: &nbsp;cnn_uni: [103.528] 88.850, 138.743, 92.508, 111.567, 84.594, 113.792, 82.299</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:50 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 3</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:57 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 3: &nbsp;cnn_uni: [73.078] 55.404, 78.120, 82.793, 81.600, 71.014, 61.538, 76.597</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:57 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 4</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:03 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 4: &nbsp;cnn_uni: [52.428] 44.508, 41.308, 43.787, 49.339, 59.317, 57.829, 65.875</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:03 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 5</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:12 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 5: &nbsp;cnn_uni: [49.894] 37.925, 39.040, 62.729, 42.287, 47.813, 50.776, 62.259</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:12 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 6</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:18 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 6: &nbsp;cnn_uni: [67.839] 44.421, 64.476, 71.973, 63.242, 67.235, 75.821, 81.459</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:18 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 7</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:23 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 7: &nbsp;cnn_uni: [59.623] 38.186, 31.124, 44.754, 53.648, 75.658, 83.467, 69.899</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:23 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 8</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:27 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 8: &nbsp;cnn_uni: [42.159] 30.761, 29.328, 37.096, 39.773, 50.439, 43.347, 57.045</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:27 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 9</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:32 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 9: &nbsp;cnn_uni: [54.419] 27.757, 67.963, 44.271, 66.798, 54.938, 47.938, 60.020</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:32 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 10</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:19:39 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 10: &nbsp;cnn_uni: [47.199] 31.102, 46.637, 47.537, 47.365, 50.464, 48.040, 55.628</span></span></p>
+<p style="line-height: 0;"><span style="font-size: 10px; font-family: Calibri, sans-serif;">2021-03-13 17:19:39 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Best model: &nbsp;cnn_uni: [42.159] 30.761, 29.328, 37.096, 39.773, 50.439, 43.347, 57.045</span></p>  </div>
 <div class="appendix_d">
   <h2 id="Appendix_D">9. Appendix D: Tools Used</h2>
   <p><em>Python</em>: Version 3.8</p>
