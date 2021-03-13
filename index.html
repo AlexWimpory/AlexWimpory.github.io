@@ -179,6 +179,10 @@
 <p>Models were trained using information about vaccinations, but this only served to worsen the performance of the models. This is due to the vaccine rollout being relatively recent which has caused the model to be trained on only 0s. The model can therefore not learn anything from this data until more information is available.</p>
 <p>It is also beneficial to plot the correlation between the output variable and its previous values, in order to see how many steps into the past should be used. This is done with the autocorrelation function.</p>
 <img src="images/auto_correlation.png" alt="" width="640" height="480">
+<ca><br>
+</ca>
+<ca><br>
+</ca>
 <ca>Figure 2.1.3: Auto-correlation plot for 'new_deaths_smoothed' up to a lag of 50 days</ca>
 <p>Figure 2.1.3 shows that when the lag increases to around 20 days, the correlation values fall into the blue region. The blue area signifies the 95% confidence interval, any values outside this region are considered to be correlated. Therefore the previous 14 days of data can be considered useful information.</p>
     <p>A data frame is used to store the information as it allows for many useful processing techniques to be easily applied in the next section. Accessing and manipulation specific columns and rows of data would be significantly more difficult if numpy or lists of dictionaries were used.</p>
@@ -374,7 +378,7 @@
   <p>In order for a fair comparison the number of iterations is always set to 10. That is 10 models of each type are trained and the best is selected to be placed in the table.</p>
   <red>Table</red>
   <p>3 graphs are plotted for each model type:</p>
-  <bullet>1. Loss during training</bullet>
+  <bullet>1. Learning curves</bullet>
   <bullet><br>
   </bullet>
   <bullet>2. The daily forecast error</bullet>
@@ -383,10 +387,10 @@
 <bullet>3.&nbsp;A comparison of the predictions to the actual values</bullet>
 <div class="naive_daily">
   <h3>4.1 Naive Daily</h3>
-</div>
+  <img src="images/RMSE_daily.png" alt="" width="640" height="480"><img src="images/pred_daily.png" alt="" width="640" height="480"></div>
   <div class="naive_weekly">
     <h3>4.2 Naive Weekly</h3>
-  </div>
+    <img src="images/RMSE_weekly.png" alt="" width="640" height="480"><img src="images/pred_weekly.png" alt="" width="640" height="480"> </div>
   <div class="univariate_cnn">
     <h3>4.3 Univariate CNN</h3>
   </div>
