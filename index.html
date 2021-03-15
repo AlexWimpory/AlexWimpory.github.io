@@ -679,7 +679,6 @@
     <ca><br>
     </ca>
     <ca>Figure 4.3.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate CNN model. Predictions are in groups of 7 due to walk forward validation</ca>
-    <ca>Figure 4.3.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate CNN model. Predictions are in groups of 7 due to walk forward validation</ca>
 <p>The univariate CNN model performs better than both of the naïve models with it mostly producing worse predictions as the week progresses. The learning curves show that the training and the validation loss do converge to a low value but the validation loss is slightly higher than the training indicating that the model might be slightly overfitting. There is also slight oscillation in the validation loss.</p>
     <p>To try and improve the model it was made deeper/wider, and dropout was introduced. However, these did not seem to have any positive effect, creating a model which performs worse on the test set.</p>
   </div>
@@ -710,7 +709,6 @@
     <img src="images/loss_simple_lstm.png" alt="" width="640" height="480">
     <ca><br>
     </ca>
-    <ca>Figure 4.5.1:&nbsp;Learning curves for the univariate simple LSTM Model </ca>
     <ca>Figure 4.5.1:&nbsp;Learning curves for the univariate simple LSTM Model </ca>
 <img src="images/RMSE_simple_lstm.png" alt="" width="640" height="480">
     <ca><br>
@@ -766,7 +764,6 @@
 <img src="images/pred_multi_enc_dec.png" alt="" width="640" height="480">
     <ca><br>
     </ca>
-    <ca>Figure 4.7.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate encoder-decoder LSTM model. Predictions are in groups of 7 due to walk forward validation</ca>
     <ca>Figure 4.7.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate encoder-decoder LSTM model. Predictions are in groups of 7 due to walk forward validation</ca>
 <p>The multivariate encoder-decoder LSTM performs the worst out of the CNN and the other LSTM models. It does however still perform better than the naïve models.</p>
     <p>The learning curves show huge spikes in the validation loss and the RMSE graph has an odd shape where the accuracy increases the further into the future the predictions are.</p>
