@@ -35,14 +35,14 @@
         <h2 id="Abstract">
           <!-- Tagline -->
           Abstract</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+        <p>TensorFlow Keras has been used to train univariate and multivariate CNNs and LSTMs which aim to predict the number of COVID deaths reported in the UK up to 7 days in advance.&nbsp; Two data sources have been used: Our World in Data and Googles community mobility reports which are downloaded and pre-processed.&nbsp; The univariate CNN which is the simplest NN works best.&nbsp; This suggests that there is not a clear pattern in the data used which would allow more complex models to operate best as you would expect them to.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </p>
       </div>
 <div class="introduction">
   <h2 id="Introduction">1. Introduction&nbsp;</h2>
   
         <div class="intoduction">
           <p>Processing large amounts of data has become a significant area of research in recent times as complex problems aim to be solved from self-driving cars to recommendation systems. This volume of data cannot be processed by hand and a more automatic method of finding patterns is required. Machine learning algorithms fulfil this purpose by allowing a model to learn from experience without having to use predetermined equations.</p>
-          <p>&nbsp;Machine learning algorithms can be broadly grouped into three categories:</p>
+          <p>Machine learning algorithms can be broadly grouped into three categories:</p>
           <bullet>&nbsp;• Supervised learning – models the relationship between input and output features&nbsp;</bullet>
           <bullet><br>
           </bullet>
@@ -52,13 +52,13 @@
           <bullet>&nbsp;• Reinforcement learning – model continuously learns from its environment in an iterative fashion.&nbsp; Unlike supervised learning there is no correct answer to be trained with and instead the reinforcement agent decides how to perform the task.&nbsp;</bullet>
           <p>Each area has its own useful applications, but this project focuses on using one of the fastest growing areas of supervised learning, neural networks (NNs).</p>
           <p>Neural networks are made from layers of interconnected nodes (or neurons) which contain an activation function. The input layer presents data to hidden layers which process the data through a system of weighted connections. The output layer will then give the prediction. This structure was inspired by the biological architecture of the brain and has gained a significant following. Nature typically finds effective, low-cost solutions to problems, it would therefore be sensible to try and imitate nature’s solution to learning, the brain.</p>
-          <p>&nbsp;TensorFlow is an open-source software library for machine learning (provides support for other algorithms such as support vector machines and random forests but NNs are the primary focus). In order to interface with TensorFlow the open-source library keras is used which allows Python code to be written (the programming language that has been widely adopted or scientific research). Keras grants easy to use tools for many different types of NN with several being implemented and described later in the report.</p>
-          <p>&nbsp;As explained before machine learning algorithms have been applied to a variety of problems, but in this case the aim is to apply NNs to COVID-19 forecasting. Since the first case was reported on the 31st of December 2019, the disease has spread rapidly around the world and has proven that effective epidemic modelling is a necessity to predict the progression of the disease so that safeguards can be put in place. The following section will describe in more detail the aims of the project where a specific category of data related to COVID-19 will be predicted.</p>
+          <p>TensorFlow is an open-source software library for machine learning (provides support for other algorithms such as support vector machines and random forests but NNs are the primary focus). In order to interface with TensorFlow the open-source library keras is used which allows Python code to be written (the programming language that has been widely adopted or scientific research). Keras grants easy to use tools for many different types of NN with several being implemented and described later in the report.</p>
+          <p>As explained before machine learning algorithms have been applied to a variety of problems, but in this case the aim is to apply NNs to COVID-19 forecasting. Since the first case was reported on the 31st of December 2019, the disease has spread rapidly around the world and has proven that effective epidemic modelling is a necessity to predict the progression of the disease so that safeguards can be put in place. The following section will describe in more detail the aims of the project where a specific category of data related to COVID-19 will be predicted.</p>
         </div>
         <div class="goals_and_objectives">
           <h3>1.2 Goals and Objectives&nbsp;</h3>
           <p><strong>&nbsp;Main Objective:</strong></p>
-          <p>&nbsp;COVID-19 data can be described as time series (measurements are indexed in time order) and discrete (measurements are taken at following points of time of equal length). A time series forecasting model is therefore needed to make predictions. The model will aim to predict the number of daily COVID-19 deaths for the next week and can be described as multistep (a single step model would predict one day ahead but this multistep model will predict seven). There are many different model structures which can perform this function so several will be tested and compared using a common metric from performance. The model should be built with TensorFlow.Keras as Keras is a commonly used method to build neural networks (Keras is a deep learning application programming interface (API), built on top of TensorFlow). </p>
+          <p>COVID-19 data can be described as time series (measurements are indexed in time order) and discrete (measurements are taken at following points of time of equal length). A time series forecasting model is therefore needed to make predictions. The model will aim to predict the number of daily COVID-19 deaths for the next week and can be described as multistep (a single step model would predict one day ahead but this multistep model will predict seven). There are many different model structures which can perform this function so several will be tested and compared using a common metric from performance. The model should be built with TensorFlow.Keras as Keras is a commonly used method to build neural networks (Keras is a deep learning application programming interface (API), built on top of TensorFlow). </p>
           <p><strong>&nbsp;Sub-objectives:</strong></p>
           <bullet>&nbsp; &nbsp; &nbsp;• Use a reliable data source (or multiple sources) to provide relevant information (helps the model predict accurate values).</bullet>
           <bullet><br>
@@ -75,7 +75,7 @@
             </bullet>
             <bullet><br>
             </bullet>
-            <bullet>&nbsp; &nbsp; &nbsp;• Ensure that the code is reusable, so that the model can be updated as more data is released or trained on different data.&nbsp;</bullet>
+            <bullet>&nbsp; &nbsp;• Ensure that the code is reusable, so that the model can be updated as more data is released or trained on different data.&nbsp;</bullet>
             <bullet><br>
             </bullet>
             <bullet>Designing the code to be reusable is good practice to increase readability and prevent wasted development time. It also allows the models to be retrained with different data. </bullet>
@@ -103,7 +103,7 @@
         <div class="lit_review">
           <h3>1.3 Literature Review</h3>
           <p>The first neural network can be traced back to having been built in 1943 and consisted of a simple circuit built by neurophysiologist Warren McCulloch with mathematician Walter Pitts (1). This led to increasing interest in the area and resulted in several single layer perceptron’s being built. It was not until Rumelhart, Hinton &amp; Williams popularized backpropagation (2) that multi-layer NNs were developed and since have become extremely popular.</p>
-          <p>&nbsp;Since then, many different types of neural networks have been developed (3) but in this report CNNs and LSTMs will be the main focus as they are typically applied to time series problems.</p>
+          <p>Since then, many different types of neural networks have been developed (3) but in this report CNNs and LSTMs will be the main focus as they are typically applied to time series problems.</p>
         </div>
         <div class="chapter_content">
           <h3>1.4 Chapter Content</h3>
@@ -235,8 +235,8 @@
     <p>The data is now ready to be split into a training and a test set where the model is fit to the training set and then evaluated on the test set. It is important to split the data so that the model can be evaluate on new data which is unbiased (model will perform better when predicting data that it has been trained on).&nbsp;</p>
     <p>10% of the data (at the end not randomly as the data is time series) is set aside in the test set in the ‘split_data_train_test’ function. Also, data is cut from the start of the train set and the end of the test set to ensure that the sets can be divided neatly into weeks which will be important later.</p>
     <p>It is good practice to provide a 3rd split of the data called a validation set but this is performed when the model is trained as it can be easily specified as an input argument.&nbsp; The validation set is used to evaluate the performance of the model during training to fine tune hyperparameters. It is separate from the test set as the model might have some slight bias towards the validation set because the model has seen the data (but not learnt from it) .&nbsp;</p>
-    <red>•	Show shapes of train and test sets</red>
-  </div>
+    <p>The training set has a shape of (48, 7, 8), showing that there are 48 sets of 7-day data with 8 features.&nbsp; The test set has a shape of (5, 7, 8) showing that it has 5 sets of 7-days.&nbsp;&nbsp;</p>
+</div>
   <div class="normalise">
     <p><strong>Normalise/Standardise</strong></p>
     <p>The different columns of data have wildly different scales, which can have a drastic impact on the performance of the model. For example, large input values can result in large weights which creates an unstable model that has poor performance. It is critical to scale the values for NNs, unlike some other machine learning methods which might not be as severely affected (not needed for decision trees). There are 2 methods typically used to prevent this from occurring: normalisation and standardisation.</p>
@@ -629,32 +629,87 @@
   <bullet><br>
   </bullet>
 <bullet>3.&nbsp;A comparison of the predictions to the actual values</bullet>
+<p>Code for plotting graphs can be found in appendix A.12.&nbsp;</p>
 <div class="naive_daily">
   <h3>4.1 Naive Daily</h3>
-  <img src="images/RMSE_daily.png" alt="" width="640" height="480"><img src="images/pred_daily.png" alt="" width="640" height="480"></div>
+  <img src="images/RMSE_daily.png" alt="" width="640" height="480">
+  <ca>Figure 4.1.1: Graph showing the change in RMSE for up to 7 steps into the future for the daily naive model&nbsp; </ca>
+  <img src="images/pred_daily.png" alt="" width="640" height="480">
+  <ca>Figure 4.1.2: Plot of the actual values in the test set vs the predictions for the daily naive model.&nbsp; Predictions are in groups of 7 due to walk forward validation&nbsp; </ca>
+  <p>The daily naive model's predictions get increasingly inaccurate as the week progresses due to the straight-line prediction not matching well with the downward trend of the deaths (shown by the RMSE increasing from 42 to 200). The model would work well if the number of deaths were more constant, but this is not the case as there is typically always an upward or downward trend.</p>
+</div>
   <div class="naive_weekly">
     <h3>4.2 Naive Weekly</h3>
-    <img src="images/RMSE_weekly.png" alt="" width="640" height="480"><img src="images/pred_weekly.png" alt="" width="640" height="480"> </div>
+    <img src="images/RMSE_weekly.png" alt="" width="640" height="480">
+    <ca>Figure 4.2.1:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the weekly naive model </ca>
+    <img src="images/pred_weekly.png" alt="" width="640" height="480">
+    <ca>Figure 4.2.2:&nbsp;Plot of the actual values in the test set vs the predictions for the weekly naive model. Predictions are in groups of 7 due to walk forward validation </ca>
+    <p>The weekly naïve model performs worse than the daily model, as shown by having a total RMSE of 194 which is greater than 133. However, the model is consistently wrong across the week with the RMSE staying between 190 and 200 but this is only due to the consistent downward trend of the data.</p>
+  </div>
   <div class="univariate_cnn">
     <h3>4.3 Univariate CNN</h3>
-    <img src="images/loss_uni_cnn.png" alt="" width="640" height="480"><img src="images/RMSE_uni_cnn.png" alt="" width="640" height="480"><img src="images/pred_uni_cnn.png" alt="" width="640" height="480"> </div>
+    <img src="images/loss_uni_cnn.png" alt="" width="640" height="480">
+    <ca>Figure 4.3.1: Learning curves for the univariate CNN model&nbsp;&nbsp; </ca>
+    <img src="images/RMSE_uni_cnn.png" alt="" width="640" height="480">
+    <ca>Figure 4.3.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the univariate CNN model </ca>
+    <img src="images/pred_uni_cnn.png" alt="" width="640" height="480">
+    <ca>Figure 4.3.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate CNN model. Predictions are in groups of 7 due to walk forward validation </ca>
+    <p>The univariate CNN model performs better than both of the naïve models with it mostly producing worse predictions as the week progresses. The learning curves show that the training and the validation loss do converge to a low value but the validation loss is slightly higher than the training indicating that the model might be slightly overfitting. There is also slight oscillation in the validation loss.</p>
+    <p>To try and improve the model it was made deeper/wider, and dropout was introduced. However, these did not seem to have any positive effect, creating a model which performs worse on the test set.</p>
+  </div>
   <div class="multivariate_cnn">
     <h3>4.4 Multivariate CNN</h3>
-    <img src="images/loss_multi_cnn.png" alt="" width="640" height="480"><img src="images/RMSE_multi_cnn.png" alt="" width="640" height="480"><img src="images/pred_multi_cnn.png" alt="" width="640" height="480"> </div>
+    <img src="images/loss_multi_cnn.png" alt="" width="640" height="480">
+    <ca>Figure 4.4.1:&nbsp;Learning curves for the multivariate CNN model </ca>
+    <img src="images/RMSE_multi_cnn.png" alt="" width="640" height="480">
+    <ca>Figure 4.4.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the multivariate CNN model </ca>
+    <img src="images/pred_multi_cnn.png" alt="" width="640" height="480">
+    <ca>Figure 4.4.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate CNN model. Predictions are in groups of 7 due to walk forward validation </ca>
+    <p>The multivariate CNN model has a total RMSE which is comparable to the univariate model, but the RMSE for each day is inconsistent with the last day being the second best at being predicted.</p>
+    <p>There is a significant downside when training this model when compared to the univariate CNN as the performance of each trained model varies widely. While the best gave a total RMSE of 42, the total RMSE could be up to 400 for the worst trained model. The worst models for the univariate CNN had a RMSE of only 60.</p>
+  </div>
   <div class="univariate_simple_lstm">
     <h3>4.5 Univariate Simple LSTM</h3>
-    <img src="images/loss_simple_lstm.png" alt="" width="640" height="480"><img src="images/RMSE_simple_lstm.png" alt="" width="640" height="480"><img src="images/pred_simple_lstm.png" alt="" width="640" height="480"> </div>
+    <img src="images/loss_simple_lstm.png" alt="" width="640" height="480">
+    <ca>Figure 4.5.1:&nbsp;Learning curves for the univariate simple LSTM Model </ca>    
+    <img src="images/RMSE_simple_lstm.png" alt="" width="640" height="480">
+    <ca>Figure 4.5.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the univariate simple LSTM model </ca>
+    <img src="images/pred_simple_lstm.png" alt="" width="640" height="480">
+    <ca>Figure 4.5.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate simple LSTM model. Predictions are in groups of 7 due to walk forward validation </ca>
+    <p>The univariate simple LSTM performs worse than the univariate CNN which is surprising as I expected this more complex model which is designed to operate on time series data to perform better. This suggests that there may not be enough of a pattern in the data to perform accurate predictions.</p>
+    <p>The learning curves also show that the model training is unstable.</p>
+  </div>
   <div class="univariate_enc_dec_lstm">
     <h3>4.6 Univariate Encoder-Decoder LSTM</h3>
-    <img src="images/loss_uni_enc_dec.png" alt="" width="640" height="480"><img src="images/pred_uni_enc_dec.png" alt="" width="640" height="480"><img src="images/RMSE_uni_enc_dec.png" alt="" width="640" height="480"> </div>
+    <img src="images/loss_uni_enc_dec.png" alt="" width="640" height="480">
+    <ca>Figure 4.6.1:&nbsp;Learning curves for the univarite encoder-decoder LSTM model </ca>
+<img src="images/RMSE_uni_enc_dec.png" alt="" width="640" height="480">
+<ca>Figure 4.6.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the univariate encoder-decoder LSTM model </ca>
+<img src="images/pred_uni_enc_dec.png" alt="" width="640" height="480">
+<ca>Figure 4.6.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate encoder-decoder LSTM model. Predictions are in groups of 7 due to walk forward validation </ca>
+<p>The univariate encoder-decoder LSTM which is more complex than the simple LSTM performs even worse, underpredicting the first week in figure 4.6.3 and then overpredicting everything else. Using more complex model structures seems to result in worse models.</p>
+  </div>
   <div class="multivariate_enc_dec_lstm">
     <h3>4.7 Multivariate Encoder-Decoder LSTM</h3>
-    <img src="images/loss_multi_enc_dec.png" alt="" width="640" height="480"><img src="images/RMSE_multi_enc_dec.png" alt="" width="640" height="480"><img src="images/pred_multi_enc_dec.png" alt="" width="640" height="480"> </div>
+    <img src="images/loss_multi_enc_dec.png" alt="" width="640" height="480">
+    <ca>Figure 4.7.1:&nbsp;Learning curves for the multivariate encoder-decoder LSTM model </ca>
+    <img src="images/RMSE_multi_enc_dec.png" alt="" width="640" height="480">
+    <ca>Figure 4.7.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the multivariate encoder-decoder LSTM model </ca>
+    <img src="images/pred_multi_enc_dec.png" alt="" width="640" height="480">
+    <ca>Figure 4.7.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate encoder-decoder LSTM model. Predictions are in groups of 7 due to walk forward validation </ca>
+    <p>The multivariate encoder-decoder LSTM performs the worst out of the CNN and the other LSTM models. It does however still perform better than the naïve models.</p>
+    <p>The learning curves show huge spikes in the validation loss and the RMSE graph has an odd shape where the accuracy increases the further into the future the predictions are.</p>
+  </div>
   <div class="comparison">
     <h3>4.8 Comparison and Discussion</h3>
+    <p>The univariate CNN performs best and increasing the complexity of the models, reduces the performance.&nbsp; This suggests that there is not enough of a pattern in the data for the models to learn and make predictions from.</p>
+    <p>There is  also likely to not be enough data samples.&nbsp; Having the testing set be only 5 weeks long is not ideal as it is too small to properly test the model.&nbsp; This in turn indicates that the training and validation sets are probably too small.&nbsp; This is not helped by how erratic the development of the the pandemic has been where aspects such as lockdowns and more contagious varients of COVID&nbsp; cause rapidly changing data.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+    <p>The variables per sample could also be considered to be inadequate.&nbsp; The categories chosen such as new cases and stringency index aim to help the model consider the many factors which determine the progression of the pandemic.&nbsp; However these could not be enough as a pandemic in the modern day can be affected in so many different way.&nbsp; &nbsp; &nbsp;</p>
+    <p>I do believe that I have pre-processed the data in a suitable way and used applicable model structures, but I would not rule out that these could be improved.&nbsp;&nbsp;</p>
   </div></div>
 <div class="conclusion">
   <h2 id="Conclusion">5. Conclusion</h2>
+  <p>Two different data sources have been used to train multiple neural network structures which aim to predict the number of new COVID deaths up to 7 days in advance. These models perform better than a naïve model but the simple univariate CNN operates best which suggests that there is not enough data or that there is not enough of a pattern in the data to make accurate predictions. However, the infrastructure built around processing data and training models is functional and easy to modify. This would make any future work aimed at improving on the system easy such as using different data, different model structures or changing hyper-parameters. This report has also only focused on the UK but the data sources used also contain information for many other countries which could be used instead (would not recommend using data from multiple countries at once due to the differences in reporting). In summary a accurate model has not necessarily been built, but the foundation has been built which allows for simple changes to be made to the code to improve the model given more time and deeper knowledge on machine learning.</p>
   </div>
 <div class="appendix_a">
   <h2 id="Appendix_A">6. Appendix A: Code</h2>
@@ -665,10 +720,11 @@
   <p>A.5: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/model_structures.py">model_structures.py</a></p>
   <p>A.6: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/base_model.py">base_model.py</a></p>
   <p>A.7: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/naive_model.py">naive_model.py</a></p>
-  <p>A.8 <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/sequential_model.py">sequential_model.py&nbsp;</a></p>
-  <p>A.9 <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/uni_multi_model.py">uni_multi_model.py&nbsp;</a></p>
-  <p>A.10 <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/logging_config.py">logging_config.py&nbsp;</a></p>
-  <p>A.11 <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/logging_config.yaml">logging_config.yaml&nbsp;</a></p>
+  <p>A.8:&nbsp; <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/sequential_model.py">sequential_model.py&nbsp;</a></p>
+  <p>A.9:&nbsp; <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/model/uni_multi_model.py">uni_multi_model.py&nbsp;</a></p>
+  <p>A.10:&nbsp; <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/logging_config.py">logging_config.py&nbsp;</a></p>
+  <p>A.11:&nbsp; <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/logging_config.yaml">logging_config.yaml&nbsp;</a></p>
+  <p>A.12: <a href="https://github.com/AlexWimpory/SNS_Covid/blob/main/sns_covid/visulisation/plotter.py">plotter.py</a></p>
 </div>
 <div class="appendix_b">
   <h2 id="Appendix_B">7. Appendix B: Packages Used</h2>
