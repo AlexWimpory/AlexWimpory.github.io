@@ -665,55 +665,110 @@
   <div class="univariate_cnn">
     <h3>4.3 Univariate CNN</h3>
     <img src="images/loss_uni_cnn.png" alt="" width="640" height="480">
-    <ca>Figure 4.3.1: Learning curves for the univariate CNN model&nbsp;&nbsp; </ca>
-    <img src="images/RMSE_uni_cnn.png" alt="" width="640" height="480">
-    <ca>Figure 4.3.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the univariate CNN model </ca>
-    <img src="images/pred_uni_cnn.png" alt="" width="640" height="480">
-    <ca>Figure 4.3.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate CNN model. Predictions are in groups of 7 due to walk forward validation </ca>
-    <p>The univariate CNN model performs better than both of the naïve models with it mostly producing worse predictions as the week progresses. The learning curves show that the training and the validation loss do converge to a low value but the validation loss is slightly higher than the training indicating that the model might be slightly overfitting. There is also slight oscillation in the validation loss.</p>
+    <ca><br>
+    </ca>
+    <ca>Figure 4.3.1: Learning curves for the univariate CNN model&nbsp;&nbsp;</ca>
+    <ca>Figure 4.3.1: Learning curves for the univariate CNN model&nbsp;&nbsp;</ca>
+<img src="images/RMSE_uni_cnn.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca><br>
+    </ca>
+    <ca>Figure 4.3.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the univariate CNN model</ca>
+<img src="images/pred_uni_cnn.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca>Figure 4.3.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate CNN model. Predictions are in groups of 7 due to walk forward validation</ca>
+    <ca>Figure 4.3.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate CNN model. Predictions are in groups of 7 due to walk forward validation</ca>
+<p>The univariate CNN model performs better than both of the naïve models with it mostly producing worse predictions as the week progresses. The learning curves show that the training and the validation loss do converge to a low value but the validation loss is slightly higher than the training indicating that the model might be slightly overfitting. There is also slight oscillation in the validation loss.</p>
     <p>To try and improve the model it was made deeper/wider, and dropout was introduced. However, these did not seem to have any positive effect, creating a model which performs worse on the test set.</p>
   </div>
   <div class="multivariate_cnn">
     <h3>4.4 Multivariate CNN</h3>
     <img src="images/loss_multi_cnn.png" alt="" width="640" height="480">
-    <ca>Figure 4.4.1:&nbsp;Learning curves for the multivariate CNN model </ca>
-    <img src="images/RMSE_multi_cnn.png" alt="" width="640" height="480">
-    <ca>Figure 4.4.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the multivariate CNN model </ca>
-    <img src="images/pred_multi_cnn.png" alt="" width="640" height="480">
-    <ca>Figure 4.4.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate CNN model. Predictions are in groups of 7 due to walk forward validation </ca>
-    <p>The multivariate CNN model has a total RMSE which is comparable to the univariate model, but the RMSE for each day is inconsistent with the last day being the second best at being predicted.</p>
+    <ca><br>
+    </ca>
+    <ca><br>
+    </ca>
+    <ca>Figure 4.4.1:&nbsp;Learning curves for the multivariate CNN model</ca>
+<img src="images/RMSE_multi_cnn.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca><br>
+    </ca>
+    <ca>Figure 4.4.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the multivariate CNN model</ca>
+<img src="images/pred_multi_cnn.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca>Figure 4.4.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate CNN model. Predictions are in groups of 7 due to walk forward validation</ca>
+    <ca>Figure 4.4.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate CNN model. Predictions are in groups of 7 due to walk forward validation</ca>
+<p>The multivariate CNN model has a total RMSE which is comparable to the univariate model, but the RMSE for each day is inconsistent with the last day being the second best at being predicted.</p>
     <p>There is a significant downside when training this model when compared to the univariate CNN as the performance of each trained model varies widely. While the best gave a total RMSE of 42, the total RMSE could be up to 400 for the worst trained model. The worst models for the univariate CNN had a RMSE of only 60.</p>
   </div>
   <div class="univariate_simple_lstm">
     <h3>4.5 Univariate Simple LSTM</h3>
     <img src="images/loss_simple_lstm.png" alt="" width="640" height="480">
-    <ca>Figure 4.5.1:&nbsp;Learning curves for the univariate simple LSTM Model </ca>    
-    <img src="images/RMSE_simple_lstm.png" alt="" width="640" height="480">
-    <ca>Figure 4.5.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the univariate simple LSTM model </ca>
-    <img src="images/pred_simple_lstm.png" alt="" width="640" height="480">
-    <ca>Figure 4.5.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate simple LSTM model. Predictions are in groups of 7 due to walk forward validation </ca>
-    <p>The univariate simple LSTM performs worse than the univariate CNN which is surprising as I expected this more complex model which is designed to operate on time series data to perform better. This suggests that there may not be enough of a pattern in the data to perform accurate predictions.</p>
+    <ca><br>
+    </ca>
+    <ca>Figure 4.5.1:&nbsp;Learning curves for the univariate simple LSTM Model </ca>
+    <ca>Figure 4.5.1:&nbsp;Learning curves for the univariate simple LSTM Model </ca>
+<img src="images/RMSE_simple_lstm.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca><br>
+    </ca>
+    <ca>Figure 4.5.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the univariate simple LSTM model</ca>
+<img src="images/pred_simple_lstm.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca><br>
+    </ca>
+    <ca>Figure 4.5.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate simple LSTM model. Predictions are in groups of 7 due to walk forward validation</ca>
+<p>The univariate simple LSTM performs worse than the univariate CNN which is surprising as I expected this more complex model which is designed to operate on time series data to perform better. This suggests that there may not be enough of a pattern in the data to perform accurate predictions.</p>
     <p>The learning curves also show that the model training is unstable.</p>
   </div>
   <div class="univariate_enc_dec_lstm">
     <h3>4.6 Univariate Encoder-Decoder LSTM</h3>
     <img src="images/loss_uni_enc_dec.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca><br>
+    </ca>
     <ca>Figure 4.6.1:&nbsp;Learning curves for the univarite encoder-decoder LSTM model </ca>
 <img src="images/RMSE_uni_enc_dec.png" alt="" width="640" height="480">
-<ca>Figure 4.6.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the univariate encoder-decoder LSTM model </ca>
+<ca><br>
+</ca>
+<ca><br>
+</ca>
+<ca>Figure 4.6.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the univariate encoder-decoder LSTM model</ca>
 <img src="images/pred_uni_enc_dec.png" alt="" width="640" height="480">
-<ca>Figure 4.6.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate encoder-decoder LSTM model. Predictions are in groups of 7 due to walk forward validation </ca>
+<ca><br>
+</ca>
+<ca><br>
+</ca>
+<ca>Figure 4.6.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate encoder-decoder LSTM model. Predictions are in groups of 7 due to walk forward validation</ca>
 <p>The univariate encoder-decoder LSTM which is more complex than the simple LSTM performs even worse, underpredicting the first week in figure 4.6.3 and then overpredicting everything else. Using more complex model structures seems to result in worse models.</p>
   </div>
   <div class="multivariate_enc_dec_lstm">
     <h3>4.7 Multivariate Encoder-Decoder LSTM</h3>
     <img src="images/loss_multi_enc_dec.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca><br>
+    </ca>
     <ca>Figure 4.7.1:&nbsp;Learning curves for the multivariate encoder-decoder LSTM model </ca>
-    <img src="images/RMSE_multi_enc_dec.png" alt="" width="640" height="480">
-    <ca>Figure 4.7.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the multivariate encoder-decoder LSTM model </ca>
-    <img src="images/pred_multi_enc_dec.png" alt="" width="640" height="480">
-    <ca>Figure 4.7.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate encoder-decoder LSTM model. Predictions are in groups of 7 due to walk forward validation </ca>
-    <p>The multivariate encoder-decoder LSTM performs the worst out of the CNN and the other LSTM models. It does however still perform better than the naïve models.</p>
+<img src="images/RMSE_multi_enc_dec.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca><br>
+    </ca>
+    <ca>Figure 4.7.2:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the multivariate encoder-decoder LSTM model</ca>
+<img src="images/pred_multi_enc_dec.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca>Figure 4.7.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate encoder-decoder LSTM model. Predictions are in groups of 7 due to walk forward validation</ca>
+    <ca>Figure 4.7.3:&nbsp;Plot of the actual values in the test set vs the predictions for the multivariate encoder-decoder LSTM model. Predictions are in groups of 7 due to walk forward validation</ca>
+<p>The multivariate encoder-decoder LSTM performs the worst out of the CNN and the other LSTM models. It does however still perform better than the naïve models.</p>
     <p>The learning curves show huge spikes in the validation loss and the RMSE graph has an odd shape where the accuracy increases the further into the future the predictions are.</p>
   </div>
   <div class="comparison">
