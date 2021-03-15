@@ -130,9 +130,10 @@
     <bullet>&nbsp;</bullet>
     <p>Csv or json would be suitable formats for the data which could then be read into a data frame, but json was selected as the countries are indexed by country, which makes finding the relevant data slightly easier.</p>
     <p>The code in appendix A.1 (‘data_loader’) will download the latest version of the data if required and will also load the data for the country which is selected in config. If the data is to be downloaded, the request package is used to check for a viable download before saving the file to the data folder.</p>
-    <p>The file header is checked to ensure that it is a json file before the contents are written to the output directory. This file can then be read when a model is trained with the ‘load_country’ function that extracts the desired information from the json file, depending on the ‘country_iso_code’ and the ‘input_columns’ in config. The output is specified by ‘output_column’ in config which must also be in ‘input_columns’ because it is expected that previous output values affect the prediction.</p>
+    <p>The file header is checked to ensure that it is a json file before the contents are written to the output directory. This file can then be read when a model is trained with the ‘load_country_owid’ function that extracts the desired information from the json file, depending on the ‘country_iso_code’ into a data frame.</p>
+    <p>While OWID is used as the primary data source, it would be beneficial to include functionality for adding other datasets to the data frame. Google’s mobility reports could provide relevant information when making COVID predictions. The data is available in 2 formats: a single csv file or a zip containing csv files for each country. The zip file is better to use as loading and cutting the single csv file to the needed country is not a fast process (the single csv file has 4.5 million rows). As the data is in a different format to OWID, a new load country function is needed called ‘load_country_gstatic’. This operates in a similar way to the other load country function, but in this case a csv file is unzipped relating to the ‘country_alpha_code’ before being loaded into a data frame. The file also contains information for subregions which is not necessary and therefore dropped.</p>
     <p>For comparison univariate models and multivariate models are trained. A univariate model measures a single variable over time and a multivariate has multiple variables over time. In this case a univariate model will only be trained on the number of deaths and the multivariate will include other variables such as number of cases.&nbsp;</p>
-    <p>To help pick which data to use a correlation heatmap can be plotted. The heatmap is a visually appealing way of showing a correlation matrix where each cell represents the correlation between 2 variables. If the correlation is greater than 0.9 or less than -0.9, the variables are highly correlated, and one variable should be removed from the training data. A simple example of this would be ‘total_deaths’ and ‘total_deaths_per_million’ where you would expect one of the columns to be removed as they are describing the same statistic and should be highly correlated.</p>
+    <p>To help pick which data to use a correlation heatmap can be plotted (need to pick useful columns of data from the sources as some will not help such as new tests . A heatmap is a visually appealing way of showing a correlation matrix where each cell represents the correlation between 2 variables. If the correlation is greater than 0.9 or less than -0.9, the variables are highly correlated, and one variable should be removed from the training data. A simple example of this would be ‘total_deaths’ and ‘total_deaths_per_million’ where you would expect one of the columns to be removed as they are describing the same statistic and should be highly correlated.</p>
     <img src="images/heatmap_2.png" alt="" width="300" height="300">
     <ca><br>
     </ca>
@@ -188,7 +189,7 @@
     <p>A data frame is used to store the information as it allows for many useful processing techniques to be easily applied in the next section. Accessing and manipulation specific columns and rows of data would be significantly more difficult if numpy or lists of dictionaries were used.</p>
     <p>It is useful to index the data frame by date instead of position because the date column gives an intuitive way of accessing the data. Having a date as the index also allows certain operations to be performed on the data frame such as setting the frequency. For this to be achieved, the current string object for the dates must be converted to a date time object which can then be set to the index with ‘set_index’. This is performed when the country is loaded in appendix A.1.&nbsp;</p>
     <p>The data has a clear daily frequency.  Any missing dates can be added as empty rows (nans) to fill in later through an interpolation method. There should not be any missing dates in the data used, but it is good practice to include this functionality to prevent distortion in the data from missing entries. This can be simply done by using asfreq(‘d’) to set the frequency to daily (if needed the data could be resampled to a different frequency).</p>
-    <p>As the data from the OWID and the GStatic dataset are processed to be indexed in the same way, they can be easily combined with join.</p>
+    <p>As the OWID and the Google dataset are indexed in the same way, they can be easily combined with join.</p>
   </div>
   <div class="pre_processing">
     <h3>2.2 Pre-Processing</h3>
@@ -375,9 +376,252 @@
 </div>
 <div class="results">
   <h2 id="Results">4. Results</h2>
-  <p>In order for a fair comparison the number of iterations is always set to 10. That is 10 models of each type are trained and the best is selected to be placed in the table.</p>
-  <red>Table</red>
-  <p>2 or 3 graphs are plotted for each model type (naive models don't have learing curves):</p>
+  <p>In order for a fair comparison the number of iterations is always set to 50. That is 50 models of each type are trained and the best is selected to be placed in the table.</p>
+<table style="margin-left:0pt;border-collapse:collapse;border:none;">
+    <tbody>
+        <tr>
+            <td style="width: 103pt;border: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;"><strong>&nbsp;</strong></p>
+            </td>
+            <td colspan="8" style="width: 376.4pt;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>RMSE</strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 103pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>Model</strong></p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>Total</strong></p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>Day 1</strong></p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>Day 2</strong></p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>Day 3</strong></p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>Day 4</strong></p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>Day 5</strong></p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>Day 6</strong></p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;text-align:center;"><strong>Day 7</strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 103pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">daily_naive</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">133.253</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">42.008</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">72.373</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">102.331</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">134.299</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">149.871</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">161.922</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">200.261</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 103pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">weekly_naive</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">193.971</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">189.120</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">190.088</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">192.676</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">194.431</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">196.598</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">194.396</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">200.261</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 103pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">uni_cnn</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">42.159</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">30.761</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">29.328</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">37.096</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">39.773</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">50.439</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">43.347</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">57.045</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 103pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">multi_cnn</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">42.528</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">52.928</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">36.148</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">27.961</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">45.322</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">42.221</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">52.508</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">34.299</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 103pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">lstm_simple_uni</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">49.030</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">33.447</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">40.339</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">45.399</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">53.651</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">58.247</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">51.312</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">55.827</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 103pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">lstm_enc_dec_uni</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">54.567</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">38.378</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">65.494</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">39.095</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">44.931</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">55.227</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">59.598</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">70.224</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 103pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">lstm_enc_dec_multi</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">81.191</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">114.581</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">74.035</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">83.530</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">77.291</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">79.527</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">75.707</p>
+            </td>
+            <td style="width: 47.05pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0cm 5.4pt;vertical-align: top;">
+                <p style="margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:normal;font-size:15px;font-family:'Calibri',sans-serif;">50.268</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p>2 or 3 graphs are plotted for each model type (naive models don't have learing curves):</p>
   <bullet>1. Learning curves</bullet>
   <bullet><br>
   </bullet>
@@ -396,16 +640,16 @@
     <img src="images/loss_uni_cnn.png" alt="" width="640" height="480"><img src="images/RMSE_uni_cnn.png" alt="" width="640" height="480"><img src="images/pred_uni_cnn.png" alt="" width="640" height="480"> </div>
   <div class="multivariate_cnn">
     <h3>4.4 Multivariate CNN</h3>
-  </div>
+    <img src="images/loss_multi_cnn.png" alt="" width="640" height="480"><img src="images/RMSE_multi_cnn.png" alt="" width="640" height="480"><img src="images/pred_multi_cnn.png" alt="" width="640" height="480"> </div>
   <div class="univariate_simple_lstm">
     <h3>4.5 Univariate Simple LSTM</h3>
-  </div>
+    <img src="images/loss_simple_lstm.png" alt="" width="640" height="480"><img src="images/RMSE_simple_lstm.png" alt="" width="640" height="480"><img src="images/pred_simple_lstm.png" alt="" width="640" height="480"> </div>
   <div class="univariate_enc_dec_lstm">
     <h3>4.6 Univariate Encoder-Decoder LSTM</h3>
-  </div>
+    <img src="images/loss_uni_enc_dec.png" alt="" width="640" height="480"><img src="images/pred_uni_enc_dec.png" alt="" width="640" height="480"><img src="images/RMSE_uni_enc_dec.png" alt="" width="640" height="480"> </div>
   <div class="multivariate_enc_dec_lstm">
     <h3>4.7 Multivariate Encoder-Decoder LSTM</h3>
-  </div>
+    <img src="images/loss_multi_enc_dec.png" alt="" width="640" height="480"><img src="images/RMSE_multi_enc_dec.png" alt="" width="640" height="480"><img src="images/pred_multi_enc_dec.png" alt="" width="640" height="480"> </div>
   <div class="comparison">
     <h3>4.8 Comparison and Discussion</h3>
   </div></div>
@@ -446,7 +690,7 @@
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;"><br></span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">Covid-19</span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">1) Download OWID data file</span></span></p>
-<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2) Download GStatic data file</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2) Download Google mobility data file</span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">3) Choose model</span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">4) exit</span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">run: 3</span></span></p>
@@ -469,8 +713,8 @@
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:32 INFO &nbsp; &nbsp; data_loader.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Data not downloaded from https://www.gstatic.com/covid19/mobility/Region_Mobility_Report_CSVs.zip</span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_loader.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Data loaded for GB</span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_pre_processor.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Columns to be trained on: [&apos;new_deaths_smoothed&apos;]</span></span></p>
-<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_pre_processor.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The training data shape is: (48, 7, 8)</span></span></p>
-<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_pre_processor.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The testing data shape is: (5, 7, 8)</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_pre_processor.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The training data shape is: (48, 7, 1)</span></span></p>
+<p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; data_pre_processor.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The testing data shape is: (5, 7, 1)</span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:33 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 1</span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:39 INFO &nbsp; &nbsp; plotter.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;RMSE for model 1: &nbsp;cnn_uni: [64.308] 39.986, 59.245, 42.155, 50.122, 53.290, 61.465, 113.722</span></span></p>
 <p style="line-height: 0;"><span style="font-family: Calibri, sans-serif;"><span style="font-size: 10px;">2021-03-13 17:18:39 INFO &nbsp; &nbsp; main.py &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Training model 2</span></span></p>
