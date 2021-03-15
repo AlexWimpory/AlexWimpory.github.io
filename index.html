@@ -633,18 +633,26 @@
 <div class="naive_daily">
   <h3>4.1 Naive Daily</h3>
   <img src="images/RMSE_daily.png" alt="" width="640" height="480">
+  <ca><br>
+  </ca>
   <ca>Figure 4.1.1: Graph showing the change in RMSE for up to 7 steps into the future for the daily naive model&nbsp; </ca>
-  <img src="images/pred_daily.png" alt="" width="640" height="480">
+<img src="images/pred_daily.png" alt="" width="640" height="480">
+  <ca><br>
+  </ca>
   <ca>Figure 4.1.2: Plot of the actual values in the test set vs the predictions for the daily naive model.&nbsp; Predictions are in groups of 7 due to walk forward validation&nbsp; </ca>
-  <p>The daily naive model's predictions get increasingly inaccurate as the week progresses due to the straight-line prediction not matching well with the downward trend of the deaths (shown by the RMSE increasing from 42 to 200). The model would work well if the number of deaths were more constant, but this is not the case as there is typically always an upward or downward trend.</p>
+<p>The daily naive model's predictions get increasingly inaccurate as the week progresses due to the straight-line prediction not matching well with the downward trend of the deaths (shown by the RMSE increasing from 42 to 200). The model would work well if the number of deaths were more constant, but this is not the case as there is typically always an upward or downward trend.</p>
 </div>
   <div class="naive_weekly">
     <h3>4.2 Naive Weekly</h3>
     <img src="images/RMSE_weekly.png" alt="" width="640" height="480">
-    <ca>Figure 4.2.1:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the weekly naive model </ca>
-    <img src="images/pred_weekly.png" alt="" width="640" height="480">
-    <ca>Figure 4.2.2:&nbsp;Plot of the actual values in the test set vs the predictions for the weekly naive model. Predictions are in groups of 7 due to walk forward validation </ca>
-    <p>The weekly naïve model performs worse than the daily model, as shown by having a total RMSE of 194 which is greater than 133. However, the model is consistently wrong across the week with the RMSE staying between 190 and 200 but this is only due to the consistent downward trend of the data.</p>
+    <ca><br>
+    </ca>
+    <ca>Figure 4.2.1:&nbsp;Graph showing the change in RMSE for up to 7 steps into the future for the weekly naive model</ca>
+<img src="images/pred_weekly.png" alt="" width="640" height="480">
+    <ca><br>
+    </ca>
+    <ca>Figure 4.2.2:&nbsp;Plot of the actual values in the test set vs the predictions for the weekly naive model. Predictions are in groups of 7 due to walk forward validation</ca>
+<p>The weekly naïve model performs worse than the daily model, as shown by having a total RMSE of 194 which is greater than 133. However, the model is consistently wrong across the week with the RMSE staying between 190 and 200 but this is only due to the consistent downward trend of the data.</p>
   </div>
   <div class="univariate_cnn">
     <h3>4.3 Univariate CNN</h3>
