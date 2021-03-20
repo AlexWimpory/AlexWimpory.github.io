@@ -86,7 +86,7 @@
             <bullet>&nbsp; &nbsp; • Code follows “the Zen of Python” and is well commented.</bullet>
             <bullet><br>
             </bullet>
-            <bullet> Coding problems can be solved in many different ways, but solution's effectiveness vary in terms of aspects such as: readability, efficiency, etc. Therefore, any code that is written should adhere to standard practices and be as efficient as possible.&nbsp;</bullet>
+            <bullet> Coding problems can be solved in many different ways, but a solution's effectiveness can vary in terms of aspects such as: readability, efficiency, etc. Therefore, any code that is written should adhere to standard practices and be as efficient as possible.&nbsp;</bullet>
             <bullet><br>
             </bullet>
             <bullet>Functions should be small and well named. Comments give someone who is interested in looking at the code the ability to follow it easily. Docstrings should be used where needed, to provide help when running the program.</bullet>
@@ -102,7 +102,7 @@
         </div>
         <div class="lit_review">
           <h3>1.3 Literature Review</h3>
-          <p>The first neural network can be traced back to having been built in 1943 and consisted of a simple circuit built by neurophysiologist Warren McCulloch with mathematician Walter Pitts (1). This led to increasing interest in the area and resulted in several single layer perceptron’s being built. It was not until Rumelhart, Hinton &amp; Williams popularized backpropagation (2) that multi-layer NNs were developed and since have become extremely popular.</p>
+          <p>The first neural network can be traced back to having been built in 1943 and consisted of a simple circuit built by neurophysiologist Warren McCulloch with mathematician Walter Pitts (1). This led to increasing interest in the area and resulted in several single layer perceptrons being built. It was not until Rumelhart, Hinton &amp; Williams popularized backpropagation (2) that multi-layer NNs were developed and since have become extremely popular.</p>
           <p>Since then, many different types of neural networks have been developed (3) but in this report CNNs and LSTMs will be the main focus as they are typically applied to time series problems.</p>
         </div>
         <div class="chapter_content">
@@ -118,7 +118,7 @@
   <div class="information_used">
     <h3>2.1 Information Used</h3>
     <p><strong>Sources</strong></p>
-    <p>The primary source of information is the ‘Our World in Data’ (OWID) COVID-19 dataset (1) which serves as an amalgamation of other data sources across multiple countries. Important information such a new cases and new deaths is provided for 207 countries which would be more difficult to source and keep up do date in the same format if the original sources were used. This  easily allows for models to be trained on different countries data without any changes to the python code (expecting the country to be defined through its iso code).</p>
+    <p>The primary source of information is the ‘Our World in Data’ (OWID) COVID-19 dataset (1) which serves as an amalgamation of other data sources across multiple countries. Important information such as new cases and new deaths are provided for 207 countries which would be more difficult to source and keep up to date in the same format if the original sources were used. This  easily allows for models to be trained on different countries' data without any changes to the python code (expecting the country to be defined through its iso code).</p>
     <p>The data is provided in 3 formats:&nbsp;</p>
     <bullet>• csv</bullet>
     <bullet>&nbsp;</bullet>
@@ -130,8 +130,8 @@
     <bullet>• json &nbsp;</bullet>
     <bullet>&nbsp;</bullet>
     <p>Csv or json would be suitable formats for the data which could then be read into a data frame, but json was selected as the countries are indexed by country, which makes finding the relevant data slightly easier.</p>
-    <p>The code in appendix A.1 (‘data_loader’) will download the latest version of the data if required and them load the data for the country specified in config. If the data is to be downloaded, the request package is used to check for a viable download before saving the file to the data folder.&nbsp; This is quite an expensive operation, hence the ability to only load the data if required.</p>
-    <p>The response header is checked to ensure that it is a json file before the contents are written to the output directory. This file can then be read when a model is trained with the ‘load_country_owid’ function that extracts the desired information from the json file, depending on the ‘country_iso_code’ into a data frame (which is GBR for the united kingdom).</p>
+    <p>The code in appendix A.1 (‘data_loader’) will download the latest version of the data if required and then load the data for the country specified in config. If the data is to be downloaded, the request package is used to check for a viable download before saving the file to the data folder.&nbsp; This is quite an expensive operation, hence the ability to only load the data if required.</p>
+    <p>The response header is checked to ensure that it is a json file before the contents are written to the output directory. This file can then be read when a model is trained with the ‘load_country_owid’ function that extracts the desired information from the json file, depending on the ‘country_iso_code’ into a data frame (which is GBR for the United Kingdom).</p>
     <p>While OWID is used as the primary data source, it would be beneficial to include functionality for adding other datasets to the data frame. Google’s mobility reports could provide relevant information when making COVID predictions. The data is available in 2 formats: a single csv file or a zip containing csv files for each country. The zip file is better to use as loading and cutting the single csv file down to the needed country is not a fast process (the single csv file has 4.5 million rows). As the data is in a different format to OWID, a new load country function is needed called ‘load_country_gstatic’. This operates in a similar way to the other load country function, but in this case a csv file is unzipped relating to the ‘country_alpha_code’, before being loaded into a data frame. The file also contains information for subregions which is not necessary and therefore dropped.</p>
     <p><strong>Selecting which data to use from the sources&nbsp;</strong></p>
 <p>For comparison, univariate models and multivariate models are trained. A univariate model measures a single variable over time and a multivariate considers multiple variables over time. In this case a univariate model will only be trained on the number of deaths and the multivariate will include other variables such as number of cases.&nbsp; The columns of data used can be selected in config as 'input_columns'.&nbsp;</p>
@@ -220,7 +220,7 @@
   </div>
   <div class="remove_nans">
     <p><strong>Remove nans</strong></p>
-    <p>The nans introduced through filling in missing dates and at the start or end of the data have to either be dropped or interpolated for the data suitable to be trained on. Typical methods such as using the mean or median cannot be implemented as the data is time series. It is also important to consider how many sequential empty values are filled in at the start/end as losing data is never wanted but introducing noise can also become an issue.</p>
+    <p>The nans introduced through filling in missing dates and at the start or end of the data have to either be dropped or interpolated. Typical methods for doing this such as using the mean or median cannot be implemented as the data is time series. It is also important to consider how many sequential empty values are filled in at the start/end as losing data is never wanted but introducing noise can also become an issue.</p>
     <p>In order to fill in the missing entries at the start of the data, back fill is used to copy the first value backwards. The limit is set to 7 to prevent a long sequence of nans at the start being filled, potentially adding in a significant amount of noise. Likewise, nans at the end of the data are filled in with forward fill and a limit of 7. The code which removes nans can be seen in method ‘remove_nan’.</p>
     <p>An override is introduced to provide a different method for removing nans as the vaccination data would not be effectively estimated using the previous method. The number of vaccinations is recorded as nan before any programmes have been established. These nans must be filled in with 0s to prevent a significant proportion of the data from being dropped. There are also some missing values during the initial rollout of the vaccine. These are estimated using linear interpolation when there is a nan in between 2 reported values.&nbsp;</p>
   </div>
@@ -237,7 +237,7 @@
     <p><strong>Split into Test and Train</strong></p>
     <p>The data is now ready to be split into a training and a test set where the model is fit to the training set and then evaluated on the test set. It is important to split the data so that the model can be evaluated on new data without bias (the model will perform better when predicting data that it has been trained on).&nbsp;</p>
     <p>10% of the data (at the end not randomly as the data is time series) is set aside for the test set in the ‘split_data_train_test’ function. Also, data is cut from the start of the train set and the end of the test set to ensure that the sets can be divided neatly into weeks which will be important later.</p>
-    <p>It is good practice to provide a 3rd split of the data called a validation set but this is performed when the model is trained as it can be easily specified as an input argument.&nbsp; The validation set is used to evaluate the performance of the model during training to fine tune hyperparameters. It is separate from the test set as the model might have some slight bias towards the validation set because the model has seen the data (but not learnt from it) .&nbsp;</p>
+    <p>It is good practice to provide a 3rd split of the data called a validation set but this is performed when the model is trained as it can be easily specified as an input argument.&nbsp; The validation set is used to evaluate the performance of the model during training to fine tune hyperparameters. It is separate from the test set as the model might have some slight bias towards the validation set because the model has seen the data (but not learnt from it).&nbsp;</p>
     <p>The training set has a shape of (48, 7, 8), showing that there are 48 sets of 7-day data with 8 features.&nbsp; The test set has a shape of (5, 7, 8) showing that it has 5 sets of 7-days.&nbsp;&nbsp;</p>
 </div>
   <div class="normalise">
@@ -261,7 +261,7 @@
   <div class="general">
     <h3>3.1 General</h3>
     <p>Running main (appendix A.3) creates a console menu (appendix A.4) which can be used to select from 3 options: downloading the data files or choosing a model. Downloading a data file will overwrite the OWID/Google file with the newest data downloaded from the internet. Choose model shows a sub menu which allows any of the implemented models to be trained and evaluated on the downloaded data. If the data has not been downloaded it will be downloaded automatically. Partial functions parse the information which selects the type of model to ‘run_model’ which will then build, train and test the model.</p>
-    <p>When selecting a model that is not naïve, the number of iterations is requested from the user. This refers to the number of models to be trained. Due to the stochastic nature of NNs, it is not expected for the model training to always produce the same result. However there is more variation in the performance of the COVID forecasting models than usual, so multiple of the same type of model can be trained, with the best then being selected.&nbsp;</p>
+    <p>When selecting a model that is not naïve, the number of iterations is requested from the user. This refers to the number of models to be trained. Due to the stochastic nature of NNs, it is not expected for the model training to always produce the same result. However there is more variation in the performance of the COVID forecasting models than usual, so multiples of the same type of model can be trained, with the best then being selected.&nbsp;</p>
     <p>The code which builds and trains the models is organised into a hierarchy of classes as shown in figure 3.1.1. This is done to prevent any duplicate code while allowing for methods which are unique to the type of model. The structures which define each layer of the model are in their own module called model_structures (appendix A.5) which is tied to the model through association. A univariate CNN  model and a univariate LSTM model can use the same class, but a different model structure is passed in.&nbsp;</p>
     <img src="images/SNS-Class.jpg" alt="" width="100%" height="100%">
 <ca>Figure 3.1.1: Shows the hierarchy of classes which inherit from each other</ca>
@@ -289,13 +289,13 @@
 <bullet><br>
 </bullet>
 <bullet>Layers are then added to the model based on the structure selected in ‘model_structures.py’.</bullet>
-<p>The method ‘compile’ configures the model for training. The loss function is used to estimate the loss of the model so that the weights can be updated to reduce the loss on the next evaluation, improving the model’s performance. It is selected when the model is compiled as ‘mse’ whose selection is explained later in the section 'evaluation metric' as other loss functions are available. The learning rate is a hyperparameter which controls by how much model is changed in response to the estimated error each time the model weights are updated. When training a NN it is beneficial to reduce the learning rate as it progresses through a learning rate schedule. However, these are difficult to optimize and have a significant impact on the performance of the model. The optimizer ‘Adam‘ was therefore selected with the default parameters which is typically quick to converge and stable while adjusting the learning rate like a learning rate schedule.</p>
+<p>The method ‘compile’ configures the model for training. The loss function is used to estimate the loss of the model so that the weights can be updated to reduce the loss on the next evaluation, improving the model’s performance. It is selected when the model is compiled as ‘mse’ whose selection is explained later in the section 'evaluation metric' as other loss functions are available. The learning rate is a hyperparameter which controls by how much the model is changed in response to the estimated error each time the model weights are updated. When training a NN it is beneficial to reduce the learning rate as it progresses through a learning rate schedule. However, these are difficult to optimize and have a significant impact on the performance of the model. The optimizer ‘Adam‘ was therefore selected with the default parameters because it is typically quick to converge and stable while adjusting the learning rate like a learning rate schedule.</p>
 <bullet>The fit method is used to train the model and has several important aspects worth explaining:</bullet>
 <bullet><br>
 </bullet>
 <bullet><br>
 </bullet>
-<bullet>•	epochs = the number times that the learning algorithm will work through the entire training dataset (set to a high number as early stopping is expected to end the training before this epoch has been reached)</bullet>
+<bullet>•	epochs = the number of times that the learning algorithm will work through the entire training dataset (set to a high number as early stopping is expected to end the training before this epoch has been reached)</bullet>
 <bullet><br>
 </bullet>
 <bullet>• ModelCheckpoint = saves the model if it performs best after each epoch</bullet>
@@ -315,13 +315,13 @@
 <p><strong>uni_multi_model.py</strong></p>
 <p>This module shown in appendix 9 contains 2 classes: CovidPredictionModelUni and CovidPredictionModelMulti which inherit from the CovidPredictionSequentialModel. These classes are similar but need their own ‘forecast’ and ‘to_supervised’ methods to account for the different shapes of input data.&nbsp;</p>
 <p><strong>Evaluation Metric</strong></p>
-    <p>A common metric is needed to measure the performance of a model which can then be compared to the others in order for the best to be determined. Two options are commonly used for continuous variables are: root mean squared error (RMSE) and mean absolute error (MAE).</p>
+    <p>A common metric is needed to measure the performance of a model which can then be compared to the others in order for the best to be determined. Two options that are commonly used for continuous variables are: root mean squared error (RMSE) and mean absolute error (MAE).</p>
     <p>RMS calculates the square root of the average of squared differences between the prediction and the actual observation whereas MAE calculates the average for the test sample, of the absolute differences between the prediction and actual the observation where all individual differences have equal weight. These can be expressed mathematically as:&nbsp;</p>
     <img src="images/RMSE.JPG" alt="" width="180" height="140">
     <p>Where n is the number of samples, j is the sample’s index, y<sub>j</sub> is the predicted value and y ̂ <sub>j</sub> is the actual value.</p>
     <p>RMSE will be used as the evaluation metric as it is more punishing on time series forecasting errors. Due to the errors being squared, large errors are heavily punished, but for MAE the error only scales linearly. A RMSE can be calculated for each of the 7 day predictions which can then be averaged to give an easily comparable value.&nbsp;</p>
     <p><strong>Walk Forward Validation</strong></p>
-    <p>Walk forward validation is a process in which the model makes a prediction for the next week and the next weeks data is then made available for the week after next.&nbsp; In this case the prediction for week 2 is made using the data for week 1 and the prediction is made for week 3 using the data from week 1 and 2 etc.</p>
+    <p>Walk forward validation is a process in which the model makes a prediction for the next week and the next weeks data is then made available for the week after next.&nbsp; In this case the prediction for week 2 is made using the data for week 1 and the prediction for week 3 is made using the data from week 1 and 2 etc.</p>
     <p>This simulates how the model would operate in the real world where not all of the data would be available at the start.&nbsp; Instead the model can only use data for the time that has elapsed with more information being slowly acquired  each week.&nbsp; &nbsp; &nbsp;</p>
 <p><strong>Logging&nbsp;</strong></p>
     <p>The Python logging framework is used to display useful information when the system is running. An example of the output can be seen in appendix C. The file ‘logging_config.py’ (appendix A.10) initialises the framework when imported and also sets TensorFlow C++ logging to 2 which silences non-error messages (TensorFlow prints a lot of red text when initialised which is now disabled).</p>
@@ -342,7 +342,7 @@
     <p>The structure for the model can be seen in appendix A.5 but it is also shown here:&nbsp;</p>
     <img src="images/uni_cnn.JPG" alt="" width="391" height="143">
     <p>The shape of the input layer is defined by the shape of the input data which in this case is 14 for n_timesteps (using the previous 2 weeks of data to make a prediction) by 1 (univariate so only one feature). The hidden layers are then defined.</p>
-    <p>The one-dimensional convolutional layer creates a feature map from the data which aims to contain only useful features. A linear operation is performed where the input data is multiplied by a set of weights called a kernel (or filter). A kernel size of 3 is used because small, odd numbers typically operate best. Small kernels are preferred to reduce computational costs and odd numbers are needed to prevent distortions. The number of filters is set to be 16 which through observation worked best (compared to smaller numbers such as 4,8 and larger numbers such as 32). Essentially this can be described as reading the input of 7 time steps, in steps of 3, 16 times.</p>
+    <p>The one-dimensional convolutional layer creates a feature map from the data which aims to contain only useful features. A linear operation is performed where the input data is multiplied by a set of weights called a kernel (or filter). A kernel size of 3 is used because small, odd numbers typically operate best. Small kernels are preferred to reduce computational costs and odd numbers are needed to prevent distortions. The number of filters is set to be 16 which through observation worked best (compared to smaller numbers such as 4, 8 and larger numbers such as 32). Essentially this can be described as reading the input of 7 time steps, in steps of 3, 16 times.</p>
     <p>Activation refers to the activation function used. It is a mathematical equation attached to each neuron in the network that determines whether it should be activated, based on if each of the neuron’s inputs are relevant for the prediction. A non-linear activation function is needed, so rectified linear unit (ReLU) is used as it is simple and computationally efficient.</p>
 <p>The pooling layer strips away any unwanted features to help prevent overfitting. Max pooling calculates the maximum value of the numbers within a single filter which often gives a higher accuracy than the other pooling methods.</p>
     <p>The last few layers of the CNN are fully connected dense layers which learn by updating weights measured by back propagation and the loss function. The output of the convolutional layers must be flattened to a one-dimensional vector as arrays cannot be used as inputs.</p>
@@ -353,7 +353,7 @@
     <p>There are 2 ways in which a CNN can be modified to work on a multivariate input instead of univariate.</p>
     <p>The first method is to treat each variable as a separate channel (hence this is called a multi-channel CNN) where each channel has its own set of filters to learn features from.</p>
     <p>The second method is to have a sub-CNN for each variable (this is called a multi-headed CNN). In order to implement this more complex structure, the functional API has to be used instead of the sequential. Therefore, a multiheaded model has not been included, although it could be by creating a new branch of the class hierarchy called 'functional_model.py'.</p>
-    <p>For the multi-channel model, as there is now more data to consider the size of the model has been increased.&nbsp;</p>
+    <p>For the multi-channel model, as there is now more data to consider, the size of the model has been increased.&nbsp;</p>
     <img src="images/multi_cnn.JPG" alt="" width="391" height="209">
     <p>The only other difference is that n_features is now greater than 1.</p>
   </div>
@@ -367,14 +367,14 @@
   </div>
   <div class="univariate_enc_dec_lstm">
     <h3>3.6 Univariate Encoder-Decoder LSTM</h3>
-    <p>The simple LSTM structure can be modified to an encoder-decoder structure by adding in a few more layers. This structure can be thought of as being made up from2 sub-models. The first is called the encoder which reads the input sequence and encodes it into a fixed length vector. The second is called the decoder which will read the encoded sequence and make a prediction for each element in the output sequence.</p>
+    <p>The simple LSTM structure can be modified to an encoder-decoder structure by adding in a few more layers. This structure can be thought of as being made up from 2 sub-models. The first is called the encoder which reads the input sequence and encodes it into a fixed length vector. The second is called the decoder which will read the encoded sequence and make a prediction for each element in the output sequence.</p>
     <p>This structure is primarily used for variable length input and output data but can be beneficial as the model is split into 2 tasks which each of the 2 sub-models can specialise in. The encoder’s task is to understand the input sequence and create a smaller dimensional representation of it. The decoder’s task is to use the output sequence of the encoder, to generate a sequence of its own which represents the output.&nbsp;</p>
     <img src="images/enc_dec_lstm.JPG" alt="" width="497" height="127">
-    <p>The first line defines the encoder. The second line duplicates the sequence from the first layer to get a 2D array for the next layer for each day in the output sequence. The third line defines the decoder where each of the 200 neurons will output a value for each of the seven output days that represent the values for what to use to predict each day in the output sequence. The final 2 lines define the output of the model, where the TimeDistributed wrapper is used to predict each day, one at a time (instead of producing all 7 days at once, hence the final layer only has a shape of 1).</p>
+    <p>The first line defines the encoder. The second line duplicates the sequence from the first layer to get a 2D array for the next layer for each day in the output sequence. The third line defines the decoder, where each of the 200 neurons will output a value for each of the seven output days that represent the values   to use to predict each day in the output sequence. The final 2 lines define the output of the model, where the TimeDistributed wrapper is used to predict each day, one at a time (instead of producing all 7 days at once, hence the final layer only has a shape of 1).</p>
 </div>
   <div class="multivariate_enc_dec_lstm">
     <h3>3.7 Multivariate Encoder-Decoder LSTM</h3>
-    <p>As the model is already suitable large, no changes need to be made to the structure (in terms of hard coding, n_features will still be different). All that needs to change is to switch the class from CovidPredictionModelUni to CovidPredictionModelMulti.</p>
+    <p>As the model is already suitably large, no changes need to be made to the structure (in terms of hard coding, n_features will still be different). All that needs to change is to switch the class from CovidPredictionModelUni to CovidPredictionModelMulti.</p>
     </div>
 </div>
 <div class="results">
@@ -672,7 +672,6 @@
     <ca><br>
     </ca>
     <ca>Figure 4.3.1: Learning curves for the univariate CNN model&nbsp;&nbsp;</ca>
-    <ca>Figure 4.3.1: Learning curves for the univariate CNN model&nbsp;&nbsp;</ca>
 <img src="images/RMSE_uni_cnn.png" alt="" width="640" height="480">
     <ca><br>
     </ca>
@@ -683,7 +682,7 @@
     <ca><br>
     </ca>
     <ca>Figure 4.3.3:&nbsp;Plot of the actual values in the test set vs the predictions for the univariate CNN model. Predictions are in groups of 7 due to walk forward validation</ca>
-<p>The univariate CNN model performs better than both of the naïve models with it mostly producing worse predictions as the week progresses. The learning curves show that the training and the validation loss do converge to a low value but the validation loss is slightly higher than the training indicating that the model might be slightly overfitting. There is also slight oscillation in the validation loss.</p>
+<p>The univariate CNN model performs better than both of the naïve models, with it mostly producing worse predictions as the week progresses. The learning curves show that the training and the validation loss do converge to a low value but the validation loss is slightly higher than the training indicating that the model might be slightly overfitting. There is also slight oscillation in the validation loss.</p>
     <p>To try and improve the model it was made deeper/wider, and dropout was introduced. However, these did not seem to have any positive effect, creating a model which performs worse on the test set.</p>
   </div>
   <div class="multivariate_cnn">
@@ -773,14 +772,14 @@
   </div>
   <div class="comparison">
     <h3>4.8 Comparison and Discussion</h3>
-    <p>The univariate CNN performs best and increasing the complexity of the models, reduces the performance.&nbsp; This suggests that there is not enough of a pattern in the data for the models to learn and make predictions from.</p>
-    <p>There is  also likely to not be enough data samples.&nbsp; Having the testing set be only 5 weeks long is not ideal as it is too small to properly test the model.&nbsp; This in turn indicates that the training and validation sets are probably too small.&nbsp; This is not helped by how erratic the development of  the pandemic has been where aspects such as lockdowns and more contagious variants of COVID&nbsp; cause rapidly changing data.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
-    <p>The variables per sample could also be considered to be inadequate.&nbsp; The categories chosen such as new cases and stringency index aim to help the model consider the many factors which determine the progression of the pandemic.&nbsp; However these could not be enough as a pandemic in the modern day can be affected in so many different way.&nbsp; &nbsp; &nbsp;</p>
+    <p>The univariate CNN performs best and increasing the complexity of the models reduces the performance.&nbsp; This suggests that there is not enough of a pattern in the data for the models to learn and make predictions from.</p>
+    <p>There is  also likely to not be enough data samples.&nbsp; Having a test set of only 5 weeks long is not ideal as it is too small to properly test the model.&nbsp; This in turn indicates that the training and validation sets are probably too small.&nbsp; This is not helped by how erratic the development of  the pandemic has been where aspects such as lockdowns and more contagious variants of COVID&nbsp; cause rapidly changing data.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+    <p>The variables per sample could also be considered to be inadequate.&nbsp; The categories chosen such as new cases and stringency index aim to help the model consider the many factors which determine the progression of the pandemic.&nbsp; However these could not be enough as a pandemic in the modern day can be affected in so many different ways.&nbsp; &nbsp; &nbsp;</p>
     <p>I do believe that I have pre-processed the data in a suitable way and used applicable model structures, but I would not rule out that these could be improved.&nbsp;&nbsp;</p>
   </div></div>
 <div class="conclusion">
   <h2 id="Conclusion">5. Conclusion</h2>
-  <p>Two different data sources have been used to train multiple neural network structures which aim to predict the number of new COVID deaths up to 7 days in advance. These models perform better than a naïve model but the simple univariate CNN operates best which suggests that there is not enough data or that there is not enough of a pattern in the data to make accurate predictions. However, the infrastructure built around processing data and training models is functional and easy to modify. This would make any future work aimed at improving on the system easy such as using different data, different model structures or changing hyper-parameters. This report has also only focused on the UK but the data sources used also contain information for many other countries which could be used instead (would not recommend using data from multiple countries at once due to the differences in reporting). In summary an accurate model has not necessarily been built, but the foundation has been built which allows for simple changes to be made to the code to improve the model given more time and deeper knowledge on machine learning.</p>
+  <p>Two different data sources have been used to train multiple neural network structures which aim to predict the number of new COVID deaths up to 7 days in advance. These models perform better than a naïve model but the simple univariate CNN operates best which suggests that there is not enough data or that there is not enough of a pattern in the data to make accurate predictions. However, the infrastructure built around processing data and training models is functional and easy to modify. This would make any future work aimed at making improvements to the system easy such as using different data, different model structures or changing hyper-parameters. This report has also only focused on the UK but the data sources used also contain information for many other countries which could be used instead (would not recommend using data from multiple countries at once due to the differences in reporting). In summary an accurate model has not necessarily been built, but the foundation has been built which allows for simple changes to be made to the code to improve the model given more time and deeper knowledge on machine learning.</p>
   </div>
 <div class="appendix_a">
   <h2 id="Appendix_A">6. Appendix A: Code</h2>
@@ -805,7 +804,7 @@
   <p><em>pandas</em>: Used to store input and output features in a data frame which provides an easy input for models and allows for analysis of the input data.</p>
   <p><em>matplotlib</em>: A library for plotting data in python.</p>
   <p><em>numpy</em>: Arrays are not traditionally needed for Python as there are lists and dictionaries. When they are required NumPy provides tools for this.</p>
-  <p><em>statsmodels</em>: A Python package that which provides tools for statistical computations including descriptive statistics and estimation and inference for statistical models</p>
+  <p><em>statsmodels</em>: A Python package  which provides tools for statistical computations including descriptive statistics and estimation/inference for statistical models</p>
   <p><em>requests</em>: A simple library for sending HTTP requests easily.</p>
   <p><em>scikit-learn</em>: A machine learning library which features easy implementation of standard regression and classification methodologies.</p>
   <p><em>seaborn</em>: A library for plotting data in python which is used for visualizing the correlation heatmap.</p>
